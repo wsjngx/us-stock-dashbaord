@@ -25,7 +25,7 @@
         </div>
         <div>
           <h1 class="text-base sm:text-lg font-bold tracking-tight">美股航海王：與神同行 × 關鍵趨勢表</h1>
-          <p class="text-xs text-slate-400">五層實戰決策儀表板（含自動判分引擎） · 基準日：2026-11-19</p>
+          <p class="text-xs text-slate-400">五層實戰決策儀表板（含自動判分引擎） · 基準日：2026-11-19（美股 11/18 收盤與 11 月最新官方數據）</p>
         </div>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
@@ -33,7 +33,7 @@
           目前檔位：逆風防守檔 (1/4 分)
         </span>
         <button id="btn-reset-live" type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-          重置為 11/19 實況
+          重置為 11/19 最新實況
         </button>
       </div>
     </div>
@@ -43,7 +43,7 @@
         <button type="button" data-tab="overview" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition">1. 總覽與評分判斷</button>
         <button type="button" data-tab="weekly" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">2. 每週 5 分鐘指標</button>
         <button type="button" data-tab="macro" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">3. 總經風向計分卡</button>
-        <button type="button" data-tab="seasonal" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">4. 四季與資金試算</button>
+        <button type="button" data-tab="seasonal" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">4. 四季、ETF階梯與資金試算</button>
         <button type="button" data-tab="bottom" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">5. 七巨人抄底 SOP</button>
       </div>
     </nav>
@@ -89,11 +89,46 @@
 
         <div class="bg-white rounded-2xl p-4 border border-slate-200 card-shadow">
           <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span>年度季節效應</span>
+            <span>年度季節效應 & 大盤水位</span>
             <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-medium">11–12 月</span>
           </div>
-          <div class="text-xl font-bold text-slate-900 mt-0.5">冬才收穫期</div>
-          <p class="text-xs text-slate-600 mt-1.5">歷史勝率最高視窗；抱緊核心、12 月中下旬再平衡</p>
+          <div class="text-xl font-bold text-slate-900 mt-0.5">冬才收穫期（VOO -6.5%）</div>
+          <p class="text-xs text-slate-600 mt-1.5">VOO $671.45 / QQQ $659.51 (-13.6%)；守住紀律不追高</p>
+        </div>
+      </div>
+
+      <!-- Executive Judgment Card -->
+      <div class="bg-slate-900 text-white rounded-2xl p-5 border border-slate-800 card-shadow space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">2026-11-19 最新判讀</span>
+              <h2 class="text-base font-bold">五層整合實戰決策判斷（截至 11/18 美股收盤）</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">總體經濟逆風壓頂 vs. 實體消費與企業基本面強韌的「高利率分化盤」</p>
+          </div>
+          <span id="exec-gear-pill" class="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-200 border border-rose-400/40 shrink-0">
+            行動指令：防守降速・保留現金・只抱核心不接刀
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1.5">
+            <div class="font-bold text-rose-300">1. 總經定調（1 / 4 分防守檔）</div>
+            <p class="text-slate-300 leading-relaxed">Fed 利率 3.75%–4.00% 且 10 月紀要偏鷹（0 分）、US10Y 飆至 5.05%–5.10%（0 分）、Core PCE 3.1% 與 10 月 CPI +0.4% MoM 偏熱（0 分），僅 DXY 103.70 暫呈高檔區間整理（+1 分警戒）。總股票曝險壓在 <strong>60%–70%</strong>，嚴守 <strong>30%–40%</strong> 短債現金緩衝。</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1.5">
+            <div class="font-bold text-indigo-300">2. 數據月曆（消費撐腰・不恐慌）</div>
+            <p class="text-slate-300 leading-relaxed">第 1 週 NFP +165K／失業率 4.1% 無衰退；第 2 週 CPI 偏熱禁追高；本週 11/17 零售控制組 <strong>+0.6% MoM</strong>（優於預期）搭配 MCSI 回升至 51.0 與 Q3 GDP +3.4%，證實<strong>實體消費有撐</strong>。核心部位續抱，靜待 11/25 第 4 週 PCE 開獎。</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1.5">
+            <div class="font-bold text-amber-300">3. ETF 階梯與換股策略</div>
+            <p class="text-slate-300 leading-relaxed">VOO ($671.45, -6.54%) 與 SPY ($730.20, -6.58%) 已觸及 -5% 階梯；QQQ ($659.51, -13.55%) 已過 -10% 並逼近 -15% ($648.43)。因總經僅 1 分，<strong>勿執行 VOO→QQQ 換倉</strong>，維持 VOO 底座；待 US10Y 不再創高或 QQQ 站回月線再啟用戰術現金。</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1.5">
+            <div class="font-bold text-emerald-300">4. 七巨人抄底優先序（全數未過 3/3）</div>
+            <p class="text-slate-300 leading-relaxed">總經關卡二全面未過，<strong>暫不執行全面抄底</strong>。<br>• 抗跌續抱：AAPL (-2.3%, 站穩 20MA)、AMZN (-6.8%, 站上 20MA)、MSFT (-9.1%)。<br>• 錯殺右側預備：<strong>GOOGL</strong> (-30.9%, 貼近月線第一順位) → <strong>META</strong> (-21.0%) → <strong>NVDA</strong> (-38.0%, 左側急跌嚴禁接刀)。<br>• 汰弱：TSLA（營益 -56%）排除抄底。</p>
+          </div>
         </div>
       </div>
 
@@ -134,31 +169,31 @@
                 <span class="text-xs font-bold text-emerald-700 uppercase">Step 3 · 年度節奏層（四季循環）</span>
                 <p class="text-sm font-semibold text-slate-900">春曉佈局 → 夏耕存彈藥 → 秋寒三階梯 → 冬才收穫</p>
               </div>
-              <span class="text-xs font-semibold text-emerald-700 shrink-0">目前：11 月冬才收穫</span>
+              <span class="text-xs font-semibold text-emerald-700 shrink-0">目前：11 月冬才收穫（回檔期）</span>
             </div>
             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <span class="text-xs font-bold text-amber-700 uppercase">Step 4 · 個股抄底層（三關卡 SOP）</span>
                 <p class="text-sm font-semibold text-slate-900">財報基本面 × 總經壓抑見頂 × 右側站回月線訊號</p>
               </div>
-              <span class="text-xs text-slate-600 shrink-0">含七巨頭最新財報評級</span>
+              <span class="text-xs text-slate-600 shrink-0">0 檔通過 3/3；GOOGL 貼近月線</span>
             </div>
             <div class="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <span class="text-xs font-bold text-indigo-700 uppercase">Step 5 · 每週執行層（5 分鐘巡檢）</span>
                 <p class="text-sm font-semibold text-slate-900">就業週 → 通膨週 → 消費週 → 核心週（輸入數據自動判定）</p>
               </div>
-              <span class="text-xs font-semibold text-indigo-700 shrink-0">本週：第 3 週消費週</span>
+              <span class="text-xs font-semibold text-indigo-700 shrink-0">本週：第 3 週消費週（有撐）</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Summary Table -->
+      <!-- Summary Macro Table -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
-            <h2 class="text-sm font-bold text-slate-900">2026-11-19 指標分數總判斷表</h2>
+            <h2 class="text-sm font-bold text-slate-900">2026-11-19 總經指標分數總判斷表</h2>
             <p class="text-xs text-slate-500">結合《攻略》評分準則與截至 2026-11-19 的最新美國官方與市場數據（同步即時模擬結果）</p>
           </div>
           <button type="button" data-jump="macro" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 text-left">前往互動調整分數 →</button>
@@ -174,6 +209,30 @@
             </tr>
           </thead>
           <tbody id="overview-macro-tbody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+
+      <!-- Overview Market ETF Snapshot -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div>
+            <h2 class="text-sm font-bold text-slate-900">大盤基準 ETF 最新點位與回檔深度（2026-11-18 收盤）</h2>
+            <p class="text-xs text-slate-500">對照「秋寒三階梯（-5% / -10% / -15%）」與 20 日均線 (SMA20) 位置</p>
+          </div>
+          <button type="button" data-jump="seasonal" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 text-left">前往查看階梯觸發價與資金試算 →</button>
+        </div>
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500">
+              <th class="py-2.5 pr-4 font-semibold">ETF / 指數</th>
+              <th class="py-2.5 pr-4 font-semibold">11/18 收盤</th>
+              <th class="py-2.5 pr-4 font-semibold">52 週高點</th>
+              <th class="py-2.5 pr-4 font-semibold">自高點回檔</th>
+              <th class="py-2.5 pr-4 font-semibold">技術與均線狀態</th>
+              <th class="py-2.5 font-semibold">階梯判定</th>
+            </tr>
+          </thead>
+          <tbody id="overview-etf-tbody" class="divide-y divide-slate-100"></tbody>
         </table>
       </div>
     </section>
@@ -199,7 +258,8 @@
               <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 1 週 · 就業週</span>
               <span id="w1-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">無衰退徵兆・維持定期定額</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-900">大非農 (NFP) ＋ 失業率（11/06 已公布）</h3>
+            <h3 class="text-sm font-bold text-slate-900">大非農 (NFP) ＋ 失業率（11/06 公布 10 月數據）</h3>
+            <p class="text-[11px] text-slate-500">9 月修正為 +60K；10 月強彈至 +165K、勞參率 61.9%、長期失業人口持平；下次公布為 12/04。</p>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <label class="block">
                 <span class="text-slate-600 font-medium">NFP 新增就業 (千人)</span>
@@ -226,7 +286,8 @@
               <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 2 週 · 通膨週</span>
               <span id="w2-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800">通膨偏熱・禁追高</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-900">CPI 月增率 ＋ 密西根信心 MCSI（11/06–10 已公布）</h3>
+            <h3 class="text-sm font-bold text-slate-900">CPI 月增率 ＋ 密西根信心 MCSI（11 月中旬已公布）</h3>
+            <p class="text-[11px] text-slate-500">10 月 Core CPI +0.3% MoM（因 2025/10 政府停擺缺基期無官方 YoY）；11 月 MCSI 51.0（1 年通膨預期降至 4.3%）。</p>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <label class="block">
                 <span class="text-slate-600 font-medium">CPI 月增率 (% MoM)</span>
@@ -257,6 +318,7 @@
               <span id="w3-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">實體消費有撐</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">零售銷售 (Retail Sales) × MCSI 交叉比對（11/17 已公布）</h3>
+            <p class="text-[11px] text-indigo-900/75">10 月總零售 $748.2B (+0.2% MoM)；計入 GDP 的控制組 +0.6% MoM 優於預期 (0.3%–0.4%)，配合 Q3 GDP 年化 +3.4%。</p>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <label class="block">
                 <span class="text-slate-600 font-medium">整體零售月增 (% MoM)</span>
@@ -280,10 +342,11 @@
           <!-- Week 4 -->
           <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50/60 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 4 週 · 核心週（11/25）</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 4 週 · 核心週（11/25 待公布）</span>
               <span id="w4-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">核心通膨偏高・防守結算</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">PCE / Core PCE 個人消費支出物價（前值 9 月 / 11/25 更新）</h3>
+            <p class="text-[11px] text-slate-500">9 月 Core PCE 年增 3.1%（月增 +0.3%）、Headline PCE 3.6%，仍明顯高於 Fed 2% 目標。</p>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <label class="block">
                 <span class="text-slate-600 font-medium">Core PCE 年增 (% YoY)</span>
@@ -344,7 +407,7 @@
       </div>
     </section>
 
-    <!-- TAB 4: SEASONAL & CAPITAL CALCULATOR -->
+    <!-- TAB 4: SEASONAL, ETF TIERS & CAPITAL CALCULATOR -->
     <section id="tab-seasonal" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
@@ -366,12 +429,12 @@
             <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
               <div class="text-xs font-bold text-amber-700">8–10 月 · 秋寒加碼</div>
               <div class="text-sm font-bold text-slate-900 mt-0.5">低勝率月三階梯買點</div>
-              <p class="text-xs text-slate-600 mt-1">大盤自前高回檔 -5% / -10% / -15% 時，分 30% / 40% / 30% 投入戰術現金池（需無系統性衰退）。</p>
+              <p class="text-xs text-slate-600 mt-1">大盤自前高回檔 -5% / -10% / -15% 時，分 30% / 40% / 30% 投入戰術現金池（需無系統性衰退且留意總經檔位）。</p>
             </div>
             <div class="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/50">
               <div class="text-xs font-bold text-emerald-700">11–12 月 · 冬才收穫（當前）</div>
               <div class="text-sm font-bold text-slate-900 mt-0.5">感恩節作帳 ＋ 年底再平衡</div>
-              <p class="text-xs text-slate-700 mt-1">抱住核心部位不猜頂；12 月中下旬盤點帳戶，將超標股票獲利了結轉回現金/短債。</p>
+              <p class="text-xs text-slate-700 mt-1">目前 VOO -6.54%、QQQ -13.55% 處於高利率壓抑回檔；抱緊核心、不殺低，12 月中下旬依目標比例再平衡。</p>
             </div>
           </div>
         </div>
@@ -395,8 +458,8 @@
               <span id="calc-cash-amt" class="font-bold text-amber-900">35,000</span>
             </div>
           </div>
-          <div class="border-t border-slate-200 pt-3">
-            <p class="text-xs font-bold text-slate-700 mb-2">若遇回檔啟動三階梯加碼（依戰術現金池分配）：</p>
+          <div class="border-t border-slate-200 pt-3 space-y-2.5">
+            <p class="text-xs font-bold text-slate-700">若遇回檔啟動三階梯加碼（依戰術現金池分配）：</p>
             <div class="grid grid-cols-3 gap-2 text-center text-xs">
               <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
                 <div class="text-slate-500">回檔 -5% (30%)</div>
@@ -411,8 +474,32 @@
                 <div id="tier-3" class="font-bold text-slate-900 mt-0.5">10,500</div>
               </div>
             </div>
+            <div id="tier-macro-warning" class="p-2.5 rounded-xl text-[11px] leading-relaxed"></div>
           </div>
         </div>
+      </div>
+
+      <!-- ETF 3-Tier Price Trigger Table -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto space-y-3">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">大盤 ETF 最新點位與「秋寒三階梯（-5% / -10% / -15%）」觸發價位表</h3>
+          <p class="text-xs text-slate-500">以 2026-11-18 美股收盤與 52 週高點計算；同步呈現 20 日均線 (SMA20) 支撐位置</p>
+        </div>
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500">
+              <th class="py-2 pr-3 font-semibold">ETF / 指數</th>
+              <th class="py-2 pr-3 font-semibold">11/18 收盤 / 52W 高</th>
+              <th class="py-2 pr-3 font-semibold">當前回檔</th>
+              <th class="py-2 pr-3 font-semibold">第 1 階 (-5%)</th>
+              <th class="py-2 pr-3 font-semibold">第 2 階 (-10%)</th>
+              <th class="py-2 pr-3 font-semibold">第 3 階 (-15%)</th>
+              <th class="py-2 pr-3 font-semibold">20MA 與技術位置</th>
+              <th class="py-2 font-semibold">來源</th>
+            </tr>
+          </thead>
+          <tbody id="etf-tier-tbody" class="divide-y divide-slate-100"></tbody>
+        </table>
       </div>
     </section>
 
@@ -423,54 +510,56 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h2 class="text-base font-bold text-slate-900">七巨人抄底 SOP 自動判定器（連動財報 × 總經 × 右側訊號）</h2>
-            <p class="text-xs text-slate-500">選擇個股並填入回檔幅度與均線狀態，系統自動依最新財報與總經計分卡判定是否可進場</p>
+            <p class="text-xs text-slate-500">切換個股會自動帶入截至 2026-11-18 收盤的真實回檔幅度與 20 日均線右側狀態，亦可自行修改數值模擬</p>
           </div>
-          <span id="auto-sop-verdict" class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">僅通過 1 / 3 關卡：續等或觀望</span>
+          <span id="auto-sop-verdict" class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">僅通過 1 / 3 關卡：暫不抄底</span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
           <label class="block">
-            <span class="font-semibold text-slate-700">選擇七巨人標的</span>
+            <span class="font-semibold text-slate-700">選擇七巨人標的（自動帶入 11/18 實況）</span>
             <select id="sop-stock-select" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
-              <option value="NVDA">NVIDIA (NVDA) — 核心極強</option>
-              <option value="MSFT">Microsoft (MSFT) — 核心極強</option>
-              <option value="AAPL">Apple (AAPL) — 穩健過關</option>
-              <option value="GOOGL">Alphabet (GOOGL) — 本業強勁</option>
-              <option value="META">Meta (META) — 廣告強・資本支出高</option>
-              <option value="AMZN">Amazon (AMZN) — 觀察警戒</option>
-              <option value="TSLA">Tesla (TSLA) — 獲利降階</option>
+              <option value="NVDA">NVIDIA (NVDA) — 回檔 38.0% · 深度錯殺左側</option>
+              <option value="GOOGL">Alphabet (GOOGL) — 回檔 30.9% · 第一順位右側觀察</option>
+              <option value="META">Meta (META) — 回檔 21.0% · 第二順位右側觀察</option>
+              <option value="MSFT">Microsoft (MSFT) — 回檔 9.1% · 核心抗跌</option>
+              <option value="AAPL">Apple (AAPL) — 回檔 2.3% · 強勢避風港</option>
+              <option value="AMZN">Amazon (AMZN) — 回檔 6.8% · 站回月線</option>
+              <option value="TSLA">Tesla (TSLA) — 回檔 23.1% · 獲利降階淘汰</option>
             </select>
           </label>
           <label class="block">
-            <span class="font-semibold text-slate-700">自前波高點回檔幅度 (%)</span>
-            <input id="sop-pullback-input" type="number" min="0" max="90" step="1" value="18" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold" />
+            <span class="font-semibold text-slate-700">自 52 週高點回檔幅度 (%)</span>
+            <input id="sop-pullback-input" type="number" min="0" max="90" step="0.1" value="38.0" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold" />
           </label>
           <label class="block">
             <span class="font-semibold text-slate-700">是否出現右側訊號（站回 20 日均線/放量）</span>
             <select id="sop-right-select" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
-              <option value="no">否（仍在下跌或築底）</option>
-              <option value="yes">是（已止跌站回月線）</option>
+              <option value="no">否（仍在 20MA 下方或築底）</option>
+              <option value="yes">是（已止跌站回 20 日均線）</option>
             </select>
           </label>
         </div>
 
         <div id="auto-sop-gates" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs"></div>
+        <div id="sop-action-summary" class="p-3.5 rounded-xl bg-slate-900 text-slate-100 text-xs leading-relaxed"></div>
       </div>
 
-      <!-- Mag 7 Latest Earnings Table -->
+      <!-- Mag 7 Latest Earnings & Price Table -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto space-y-3">
         <div>
-          <h3 class="text-sm font-bold text-slate-900">美股七巨人最新一季財報判定表（2026 年 10–11 月公布）</h3>
-          <p class="text-xs text-slate-500">依 Step 3「財報汰弱留強」與 Step 4「好公司基本面檢核」自動標註各標的定位</p>
+          <h3 class="text-sm font-bold text-slate-900">美股七巨人最新財報 × 11/18 股價回檔 × 20MA 判定總表</h3>
+          <p class="text-xs text-slate-500">點擊「帶入判定」可立即將該股真實回檔與均線狀態代入上方抄底判定器</p>
         </div>
         <table class="w-full text-left border-collapse text-xs sm:text-sm">
           <thead>
             <tr class="border-b border-slate-200 text-slate-500">
               <th class="py-2 pr-3 font-semibold">標的</th>
-              <th class="py-2 pr-3 font-semibold">最新季度營收 / 獲利實況</th>
-              <th class="py-2 pr-3 font-semibold">關鍵隱憂 / 指引</th>
+              <th class="py-2 pr-3 font-semibold">11/18 收盤 / 52W 高 / 回檔</th>
+              <th class="py-2 pr-3 font-semibold">20 日均線 (SMA20) 狀態</th>
+              <th class="py-2 pr-3 font-semibold">最新季度財報與關鍵隱憂</th>
               <th class="py-2 pr-3 font-semibold">攻略判定</th>
-              <th class="py-2 font-semibold">來源</th>
+              <th class="py-2 font-semibold">操作 / 來源</th>
             </tr>
           </thead>
           <tbody id="mag7-tbody" class="divide-y divide-slate-100"></tbody>
@@ -499,7 +588,7 @@
             <input type="checkbox" class="sop-check mt-0.5 w-4 h-4 rounded text-indigo-600" data-sop="2" />
             <div class="text-xs sm:text-sm">
               <div class="font-bold text-slate-900">關卡二：確認「總經殺盤動能見頂」（關鍵趨勢表補齊）</div>
-              <p class="text-slate-600 mt-0.5">US10Y 殖利率不再創高、CPI/PCE 維持回落軌道。</p>
+              <p class="text-slate-600 mt-0.5">US10Y 殖利率不再創高、CPI/PCE 維持回落軌道，且 Fed 政策轉趨明朗。</p>
             </div>
           </label>
           <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 cursor-pointer hover:bg-slate-100/70 transition">
@@ -531,68 +620,165 @@
       w4Hpce: 3.6
     };
 
+    const ETF_DATA = [
+      {
+        sym: 'VOO',
+        name: 'VOO (Vanguard S&P 500)',
+        close: 671.45,
+        dayChange: '-0.26%',
+        high52w: 718.47,
+        pullbackPct: -6.54,
+        tier5: 682.55,
+        tier10: 646.62,
+        tier15: 610.70,
+        sma20Note: '20MA ~$675.69（微幅跌破月線，RSI ~32 近超賣，支撐看 $668）',
+        tierStatus: '已觸發第 1 階 (-5%)',
+        tierBadgeClass: 'bg-amber-100 text-amber-800',
+        url: 'https://finance.yahoo.com/quote/VOO/'
+      },
+      {
+        sym: 'SPY',
+        name: 'SPY (SPDR S&P 500)',
+        close: 730.20,
+        dayChange: '-0.31%',
+        high52w: 781.62,
+        pullbackPct: -6.58,
+        tier5: 742.54,
+        tier10: 703.46,
+        tier15: 664.38,
+        sma20Note: '對應 S&P 500 指數收 7,323.63（52W 高 7,844.52，回檔 -6.64%）',
+        tierStatus: '已觸發第 1 階 (-5%)',
+        tierBadgeClass: 'bg-amber-100 text-amber-800',
+        url: 'https://finance.yahoo.com/quote/SPY/'
+      },
+      {
+        sym: 'QQQ',
+        name: 'QQQ (Invesco Nasdaq-100)',
+        close: 659.51,
+        dayChange: '+0.39%',
+        high52w: 762.86,
+        pullbackPct: -13.55,
+        tier5: 724.72,
+        tier10: 686.57,
+        tier15: 648.43,
+        sma20Note: '位於 20MA 下方修正中（距第 3 階 -15% 僅差約 1.7%）',
+        tierStatus: '已觸發第 2 階 (-10%)',
+        tierBadgeClass: 'bg-rose-100 text-rose-800',
+        url: 'https://finance.yahoo.com/quote/QQQ/'
+      }
+    ];
+
     const MAG7_DATA = {
       NVDA: {
         name: 'NVIDIA (NVDA)',
-        report: 'Q3 FY27 營收 $115.8B (+103% YoY)、Non-GAAP EPS $2.68、毛利率 74.9%',
-        note: 'Q4 指引 $130.0B 優於預期；留意 CEO 交接過渡與 Q4 毛利率略降至 71%–72%',
-        verdict: '核心極強（保留）',
+        price: 150.96,
+        high52w: 243.37,
+        pullback: 38.0,
+        sma20: '~$189–$195',
+        rightSignal: false,
+        rsiNote: '遠低於 20MA（RSI ~22–27 深度超賣・左側急跌）',
+        report: 'Q3 FY27 營收 $115.8B (+103% YoY)、Data Center $107.6B (+110%)、Non-GAAP EPS $2.68、毛利率 74.9%',
+        note: 'Q4 指引 $130.0B 優於預期；惟黃仁勳突辭 CEO 由 Colette Kress 暫代引發劇烈賣壓',
+        verdict: '核心極強（深度錯殺・左側觀察）',
         badgeClass: 'bg-emerald-100 text-emerald-800',
         fundamentalPass: true,
+        actionNote: '11/19 實況判定（1/3 關卡）：基本面與指引極強且錯殺 38.0%（關卡一✅），但總經逆風（關卡二❌）且股價遠低於 20MA（關卡三❌），屬典型左側急跌。嚴禁接刀，務必等止跌站回 20MA 且美債殖利率見頂再分批抄底。',
         url: 'https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/'
-      },
-      MSFT: {
-        name: 'Microsoft (MSFT)',
-        report: 'Q1 FY27 營收 $92.28B (+19% YoY)、調整後 EPS $4.89、Azure 成長 +48%',
-        note: '雲端與 AI 變現動能紮實，資本支出高檔但商業 RPO 大增 73%',
-        verdict: '核心極強（保留）',
-        badgeClass: 'bg-emerald-100 text-emerald-800',
-        fundamentalPass: true,
-        url: 'https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast'
-      },
-      AAPL: {
-        name: 'Apple (AAPL)',
-        report: 'Q4 FY26 營收 $114.48B (+11.7% YoY)、EPS $2.10 (+13.5% YoY)',
-        note: '12 月季營收指引 +7%～+10%，但記憶體與 AI 成本使毛利率指引降至 45%–46%',
-        verdict: '穩健過關（保留）',
-        badgeClass: 'bg-emerald-100 text-emerald-800',
-        fundamentalPass: true,
-        url: 'https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/'
       },
       GOOGL: {
         name: 'Alphabet (GOOGL)',
-        report: 'Q3 營收 $127.58B (+25% YoY)、營業利益 +30%、Cloud $30.7B (+103%)',
-        note: 'EPS 年減係受 SpaceX 未實現損失 $8.2B 拖累；單季 CapEx $51.4B 使 FCF 轉負',
-        verdict: '本業強勁（保留）',
+        price: 282.44,
+        high52w: 408.61,
+        pullback: 30.9,
+        sma20: '~$283–$297',
+        rightSignal: false,
+        rsiNote: '貼近 20MA 下緣（僅差 $1–$5，RSI ~35）',
+        report: 'Q3 營收 $127.58B (+25% YoY)、連 13 季雙位數成長、EPS $2.12、Cloud $30.7B (+103%)',
+        note: 'EPS 年減受 SpaceX 未實現損失 $8.2B 拖累；單季 CapEx $51.4B 使 FCF 轉負',
+        verdict: '本業強勁（第一順位右側觀察）',
         badgeClass: 'bg-emerald-100 text-emerald-800',
         fundamentalPass: true,
+        actionNote: '11/19 實況判定（1/3 關卡）：雲端與搜尋動能極強且回檔 30.9%（關卡一✅），僅差 $1–$5 即有望站回 20MA，列為「第一順位右側觀察標的」，待確認放量站上月線並留意 US10Y 壓力緩解。',
         url: 'https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf'
       },
       META: {
         name: 'Meta (META)',
-        report: 'Q3 營收 $64.60B (+26% YoY)、Q4 指引 $73B–$76B 強勁',
+        price: 616.38,
+        high52w: 779.82,
+        pullback: 21.0,
+        sma20: '~$620.90–$633.11',
+        rightSignal: false,
+        rsiNote: '位於 20MA 下方整理（RSI ~39–41）',
+        report: 'Q3 營收 $64.60B (+26% YoY)、排除和解金 EPS $7.40（GAAP $3.83）、Q4 指引 $73B–$76B 強勁',
         note: '認列 $9.89B 法律和解金；單季 CapEx $34.91B 使自由現金流降至 -$2.12B',
-        verdict: '廣告強（續抱觀察）',
+        verdict: '廣告強（第二順位右側觀察）',
         badgeClass: 'bg-amber-100 text-amber-800',
         fundamentalPass: true,
+        actionNote: '11/19 實況判定（1/3 關卡）：核心廣告與 Q4 指引紮實且回檔 21.0%（關卡一✅），列為「第二順位右側觀察標的」，待站回 $625+ 月線且總經壓力緩解再動用 B 桶資金。',
         url: 'https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx'
+      },
+      MSFT: {
+        name: 'Microsoft (MSFT)',
+        price: 508.29,
+        high52w: 559.15,
+        pullback: 9.1,
+        sma20: '~$510–$527',
+        rightSignal: false,
+        rsiNote: '微幅低於 20MA 下緣（100/200MA 完好，RSI ~45）',
+        report: 'Q1 FY27 營收 $92.28B (+19% YoY)、調整後 EPS $4.89、Azure 成長 +48%（5 年最快）',
+        note: '雲端與 AI 變現動能紮實，商業 RPO 大增 73%；抗跌性強尚未觸及深跌門檻',
+        verdict: '核心抗跌（續抱觀察）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        actionNote: '11/19 實況判定（0/3 關卡）：基本面極強但僅回檔 9.1%（<15% 錯殺門檻），屬核心抗跌領頭羊。既有部位續抱；若隨大盤補跌至 -15% (~$475) 或站回 $515 且總經轉順再考慮加碼。',
+        url: 'https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast'
+      },
+      AAPL: {
+        name: 'Apple (AAPL)',
+        price: 352.45,
+        high52w: 360.83,
+        pullback: 2.3,
+        sma20: '~$347.00',
+        rightSignal: true,
+        rsiNote: '已站穩 20/50/200MA 之上（RSI ~47–56）',
+        report: 'Q4 FY26 營收 $114.48B (+11.7% YoY)、EPS $2.10 (+13.5%)、FY26 全年 $479B 創高',
+        note: 'iPhone Duo/18 Pro 與服務營收創高；記憶體與 AI 成本使毛利率指引微降至 45%–46%',
+        verdict: '強勢抗跌（避風港續抱）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        actionNote: '11/19 實況判定（1/3 關卡）：站穩所有均線之上（關卡三✅），但僅回檔 2.3% 非錯殺位置（關卡一❌），屬大盤震盪避風港。既有核心部位續抱，不追高加碼。',
+        url: 'https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/'
       },
       AMZN: {
         name: 'Amazon (AMZN)',
-        report: 'Q3 營收 $201.94B (+12.1%)、EPS $1.89 雙雙略低於預期；AWS +39%',
+        price: 267.74,
+        high52w: 287.20,
+        pullback: 6.8,
+        sma20: '~$257.00–$260.68',
+        rightSignal: true,
+        rsiNote: '已強勢站上 20MA（11/18 漲 3.82%，RSI ~55–60）',
+        report: 'Q3 營收 $201.94B (+12.1% YoY)、EPS $1.89 略低預期；AWS 加速成長至 +39%',
         note: 'Q4 營收指引偏保守，且單季 CapEx $77.26B 使自由現金流降至 -$34.84B',
-        verdict: '觀察／減碼警戒',
+        verdict: '技術強勢・FCF 觀察',
         badgeClass: 'bg-amber-100 text-amber-800',
         fundamentalPass: false,
+        actionNote: '11/19 實況判定（1/3 關卡）：技術面已強勢站上 20MA（關卡三✅），但僅回檔 6.8% 且單季自由現金流大幅轉負（關卡一❌），既有部位續抱即可，不列入深跌抄底名單。',
         url: 'https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/'
       },
       TSLA: {
         name: 'Tesla (TSLA)',
+        price: 383.72,
+        high52w: 498.83,
+        pullback: 23.1,
+        sma20: '~$381.00–$386.26',
+        rightSignal: false,
+        rsiNote: '緊貼 20MA 震盪（RSI ~50–53）',
         report: 'Q3 營收 $28.05B (-0.2% YoY 持平)、毛利率 19.6%、Non-GAAP EPS $0.48',
-        note: 'AI 與 Optimus 費用大增 39%，致營業利益年減 56%、GAAP EPS 年減 44% 至 $0.22',
+        note: '交車優於預期且 FSD 訂閱破 174 萬 (+67% YoY)，惟 AI 費用增 39% 致營業利益 -56%、GAAP EPS -44% ($0.22)',
         verdict: '獲利降階（優先汰弱）',
         badgeClass: 'bg-rose-100 text-rose-800',
         fundamentalPass: false,
+        actionNote: '11/19 實況判定（0/3 關卡）：雖回檔 23.1%，但營業利益年減 56%、GAAP EPS 年減 44%，屬於 Step 3「財報獲利降階」標的，不符合關卡一基本面檢核，優先汰弱不列入抄底名單。',
         url: 'https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/'
       }
     };
@@ -607,7 +793,7 @@
       el.textContent = msg;
       el.classList.remove('hidden');
       clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => el.classList.add('hidden'), 2400);
+      window.__toastTimer = setTimeout(() => el.classList.add('hidden'), 2600);
     }
 
     function autoJudgeMacro() {
@@ -623,7 +809,7 @@
           autoScore: autoRate,
           score: manualOverrides.rate_dir !== null ? manualOverrides.rate_dir : autoRate,
           liveDisplay: macroInputs.fedPolicy === 'hike_or_hawkish'
-            ? '升息循環 / 轉鷹（3.75%–4.00%，12月升息機率92%）'
+            ? '升息循環 / 轉鷹（3.75%–4.00%，9月升1碼・10月紀要偏鷹）'
             : (macroInputs.fedPolicy === 'pause_near_cut' ? '停止升息且半年內預期降息' : 'Fed 處於降息循環'),
           ruleText: '降息或半年內轉鴿 → +1 ｜ 升息或轉鷹 → 0',
           sourceHtml: '<a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Fed</a> · <a href="https://kalshi.com/markets/kxfeddecision/fed-meeting/kxfeddecision-26dec" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Kalshi</a>'
@@ -633,7 +819,7 @@
           name: '2. 利率高低 (US10Y)',
           autoScore: autoYield,
           score: manualOverrides.yield_10y !== null ? manualOverrides.yield_10y : autoYield,
-          liveDisplay: `US10Y = ${macroInputs.us10y.toFixed(2)}%`,
+          liveDisplay: `US10Y = ${macroInputs.us10y.toFixed(2)}%（區間 5.05%–5.10% 高企）`,
           ruleText: '< 4.30% 平穩下行 → +1 ｜ ≥ 4.30% / 飆破 4.5% → 0',
           sourceHtml: '<a href="https://tradingeconomics.com/united-states/government-bond-yield" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Trading Economics</a>'
         },
@@ -642,16 +828,16 @@
           name: '3. 美元強弱 (DXY)',
           autoScore: autoDxy,
           score: manualOverrides.dxy !== null ? manualOverrides.dxy : autoDxy,
-          liveDisplay: `DXY = ${macroInputs.dxyVal.toFixed(2)} (${macroInputs.dxyTrend === 'weak_or_range' ? '區間整理/走弱' : '單邊急升突破'})`,
+          liveDisplay: `DXY = ${macroInputs.dxyVal.toFixed(2)} (${macroInputs.dxyTrend === 'weak_or_range' ? '近 19 個月高檔區間整理・警戒' : '單邊急升突破高檔'})`,
           ruleText: '走弱或區間整理 → +1 ｜ 單邊急升破前高 → 0',
           sourceHtml: '<a href="https://tradingeconomics.com/united-states/currency" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Trading Economics</a>'
         },
         {
           id: 'inflation',
-          name: '4. 通膨高低 (Core PCE)',
+          name: '4. 通膨高低 (Core PCE / CPI)',
           autoScore: autoInf,
           score: manualOverrides.inflation !== null ? manualOverrides.inflation : autoInf,
-          liveDisplay: `Core PCE = ${macroInputs.corePce.toFixed(1)}% YoY`,
+          liveDisplay: `Core PCE = ${macroInputs.corePce.toFixed(1)}% YoY（9月；10月 CPI +0.4% MoM）`,
           ruleText: '1.5%–3.0% 溫和區間 → +1 ｜ > 3.0% 黏著反彈或通縮 → 0',
           sourceHtml: '<a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index-excluding-food-and-energy" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">BEA</a> · <a href="https://www.bls.gov/news.release/cpi.nr0.htm" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">BLS</a>'
         }
@@ -664,11 +850,15 @@
           title: '順風加速檔（加油門概念）',
           badge: `目前檔位：順風加速檔 (${totalScore}/4 分)`,
           shortBadge: `目前：${totalScore}/4 分（加速檔）`,
+          execPill: `行動指令：順風加速・執行 VOO→QQQ 互換`,
+          execPillClass: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/40',
           exposureText: '85%–95%',
           cashText: '僅留 5%–15% 備用現金',
           eqMid: 90,
           cashMid: 10,
           advice: '可執行 VOO → QQQ 互換法提高科技成長權重，並於回檔時積極投入七巨人衛星部位。',
+          tierWarning: '✅ 總經分數 ≥ 3 分（順風）：大盤回檔觸及 -5% / -10% / -15% 階梯時，可依計畫正常釋放戰術現金池。',
+          tierWarningClass: 'bg-emerald-50 border border-emerald-200 text-emerald-800',
           boxClass: 'bg-emerald-50 border-emerald-200',
           pillClass: 'bg-emerald-600 text-white',
           badgeClass: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30',
@@ -680,11 +870,15 @@
           title: '常規巡航檔（1.0x 基準）',
           badge: '目前檔位：常規巡航檔 (2/4 分)',
           shortBadge: '目前：2/4 分（巡航檔）',
+          execPill: '行動指令：常規巡航・維持 VOO 主軸・逢錯殺分批承接',
+          execPillClass: 'bg-amber-500/20 text-amber-200 border-amber-400/40',
           exposureText: '75%–80%',
           cashText: '保留 20%–25% 美元現金 / 短債',
           eqMid: 78,
           cashMid: 22,
           advice: 'A 桶維持 VOO 為主軸不動；B 桶保留約 20–25% 現金，僅於數據錯殺或季節修正時分批承接。',
+          tierWarning: '⚖️ 總經分數 2 分（中性巡航）：可執行 -5% / -10% 階梯分批承接，但整體曝險上限控制在 80%。',
+          tierWarningClass: 'bg-amber-50 border border-amber-200 text-amber-900',
           boxClass: 'bg-amber-50 border-amber-200',
           pillClass: 'bg-amber-600 text-white',
           badgeClass: 'bg-amber-500/20 text-amber-200 border-amber-400/30',
@@ -695,11 +889,15 @@
         title: '逆風防守檔（踩剎車 0.6x）',
         badge: `目前檔位：逆風防守檔 (${totalScore}/4 分)`,
         shortBadge: `目前：${totalScore}/4 分（防守檔）`,
+        execPill: '行動指令：防守降速・保留 30%–40% 現金・只抱核心不接刀',
+        execPillClass: 'bg-rose-500/20 text-rose-200 border-rose-400/40',
         exposureText: '60%–70%',
         cashText: '保留 30%–40% 美元現金 / 短債 (SGOV/BIL)',
         eqMid: 65,
         cashMid: 35,
         advice: '啟動 0.6x 踩剎車思維：將衛星部位逢高獲利了結或把 QQQ 換回 VOO，整體曝險降至 60%–70%，留足現金等深跌。',
+        tierWarning: '⚠️ 總經僅 ' + totalScore + '/4 分（防守檔）：雖然 VOO (-6.54%) 與 QQQ (-13.55%) 已觸及技術階梯價位，依 Step 2/3 防守優先原則，不主動把戰術現金打滿，優先維持 30%–40% 短債緩衝直到 US10Y 停止創高或出現右側站回訊號。',
+        tierWarningClass: 'bg-rose-50 border border-rose-200 text-rose-800',
         boxClass: 'bg-rose-50 border-rose-200',
         pillClass: 'bg-rose-600 text-white',
         badgeClass: 'bg-rose-500/20 text-rose-200 border-rose-400/30',
@@ -719,12 +917,12 @@
               <p class="text-[11px] text-slate-500">${items[0].ruleText}</p>
             </div>
             <div class="flex items-center gap-1.5">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[0].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[0].score === 1 ? '+1 順風' : '0 逆風'}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[0].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">判定：${items[0].score === 1 ? '+1 順風' : '0 逆風'}</span>
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center justify-between">
             <select id="macro-in-fed" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-xs font-semibold flex-1">
-              <option value="hike_or_hawkish" ${macroInputs.fedPolicy === 'hike_or_hawkish' ? 'selected' : ''}>升息循環 / 轉鷹（3.75%–4.00%，12月升息機率92%）</option>
+              <option value="hike_or_hawkish" ${macroInputs.fedPolicy === 'hike_or_hawkish' ? 'selected' : ''}>升息循環 / 轉鷹（3.75%–4.00%，9月升1碼・10月紀要偏鷹）</option>
               <option value="pause_near_cut" ${macroInputs.fedPolicy === 'pause_near_cut' ? 'selected' : ''}>停止升息且預期半年內降息</option>
               <option value="cutting" ${macroInputs.fedPolicy === 'cutting' ? 'selected' : ''}>Fed 處於降息循環</option>
             </select>
@@ -742,7 +940,7 @@
               <span class="text-sm font-bold text-slate-900">${items[1].name}</span>
               <p class="text-[11px] text-slate-500">${items[1].ruleText}</p>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[1].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[1].score === 1 ? '+1 順風' : '0 逆風'}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[1].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">判定：${items[1].score === 1 ? '+1 順風' : '0 逆風'}</span>
           </div>
           <div class="flex items-center justify-between gap-2">
             <label class="flex items-center gap-2 text-xs">
@@ -761,15 +959,15 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span class="text-sm font-bold text-slate-900">${items[2].name}</span>
-              <p class="text-[11px] text-slate-500">${items[2].ruleText}</p>
+              <p class="text-[11px] text-slate-500">${items[2].ruleText}（目前近 19 個月高檔區間，若續飆破高檔應手動調為 0）</p>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[2].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[2].score === 1 ? '+1 順風' : '0 逆風'}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[2].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">判定：${items[2].score === 1 ? '+1 順風' : '0 逆風'}</span>
           </div>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
             <div class="flex items-center gap-2 text-xs flex-1">
               <input id="macro-in-dxy" type="number" step="0.1" value="${macroInputs.dxyVal}" class="w-24 px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
               <select id="macro-in-dxytrend" class="px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold flex-1">
-                <option value="weak_or_range" ${macroInputs.dxyTrend === 'weak_or_range' ? 'selected' : ''}>區間整理或走弱</option>
+                <option value="weak_or_range" ${macroInputs.dxyTrend === 'weak_or_range' ? 'selected' : ''}>高檔區間整理或走弱</option>
                 <option value="breakout_surge" ${macroInputs.dxyTrend === 'breakout_surge' ? 'selected' : ''}>單邊急升突破前高</option>
               </select>
             </div>
@@ -787,7 +985,7 @@
               <span class="text-sm font-bold text-slate-900">${items[3].name}</span>
               <p class="text-[11px] text-slate-500">${items[3].ruleText}</p>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[3].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[3].score === 1 ? '+1 順風' : '0 逆風'}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[3].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">判定：${items[3].score === 1 ? '+1 順風' : '0 逆風'}</span>
           </div>
           <div class="flex items-center justify-between gap-2">
             <label class="flex items-center gap-2 text-xs">
@@ -813,7 +1011,7 @@
         if (Number.isFinite(v)) {
           macroInputs.us10y = v;
           manualOverrides.yield_10y = null;
-          syncAllViews(false);
+          syncAllViews();
         }
       });
       document.getElementById('macro-in-us10y').addEventListener('change', () => renderMacroControls());
@@ -821,7 +1019,7 @@
         const v = parseFloat(e.target.value);
         if (Number.isFinite(v)) {
           macroInputs.dxyVal = v;
-          syncAllViews(false);
+          syncAllViews();
         }
       });
       document.getElementById('macro-in-dxytrend').addEventListener('change', e => {
@@ -835,7 +1033,7 @@
         if (Number.isFinite(v)) {
           macroInputs.corePce = v;
           manualOverrides.inflation = null;
-          syncAllViews(false);
+          syncAllViews();
         }
       });
       document.getElementById('macro-in-cpce').addEventListener('change', () => renderMacroControls());
@@ -865,11 +1063,11 @@
       if (nfp < 50 || unemp >= 4.5) {
         w1Badge.textContent = '就業轉冷・週五不接刀';
         w1Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
-        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (${nfp}K) 偏弱或失業率 (${unemp}%) 升溫，若引發急殺<strong>當週五先不接刀</strong>，靜待第 2 週通膨確認政策空間。</p>`;
+        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (+${nfp}K) 偏弱或失業率 (${unemp}%) 升溫，若引發急殺<strong>當週五先不接刀</strong>，靜待第 2 週通膨確認政策空間。</p>`;
       } else {
         w1Badge.textContent = '無衰退徵兆・維持定期定額';
         w1Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
-        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (${nfp}K)、失業率 (${unemp}%) 顯示勞動市場穩健無衰退，維持核心定期定額；小非農只看風向不動作。</p>`;
+        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (+${nfp}K)、失業率 (${unemp}%) 顯示勞動市場穩健無衰退，維持核心定期定額；小非農只看風向不動作。</p>`;
       }
 
       // Week 2
@@ -878,11 +1076,11 @@
       if (cpiMom >= 0.3) {
         w2Badge.textContent = '通膨偏熱・禁追高';
         w2Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
-        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 ${cpiMom.toFixed(1)}% 偏熱。遵守「公布前 24h 禁買高」；${totalMacroScore >= 2 ? '總經 ≥ 2 分，若開盤錯殺 -1.5%~-2% 可接 50% 額度' : '因目前總經僅 ' + totalMacroScore + ' 分（防守檔），不建議主動接刀'}。</p>`;
+        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 +${cpiMom.toFixed(1)}% 偏熱（連兩月黏著）。遵守「公布前 24h 禁買高」；${totalMacroScore >= 2 ? '總經 ≥ 2 分，若開盤錯殺 -1.5%~-2% 可接 50% 額度' : '因目前總經僅 ' + totalMacroScore + ' 分（防守檔），不建議主動接刀'}。</p>`;
       } else {
         w2Badge.textContent = '通膨降溫・留意錯殺買點';
         w2Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
-        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 ${cpiMom.toFixed(1)}% 溫和，有利降息預期；若短線波動錯殺可依總經檔位評估承接。</p>`;
+        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 +${cpiMom.toFixed(1)}% 溫和，有利降息預期；若短線波動錯殺可依總經檔位評估承接。</p>`;
       }
 
       // Week 3
@@ -896,10 +1094,12 @@
         kpiW3.textContent = `零售 ${retailMom}% 與信心同步轉弱 → 暫停加碼`;
         kpiW3.className = 'text-xs text-rose-700 font-medium mt-1.5';
       } else {
+        const retailSign = retailMom >= 0 ? '+' : '';
+        const ctrlSign = retailCtrl >= 0 ? '+' : '';
         w3Badge.textContent = '實體消費有撐・續抱不追高';
         w3Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
-        w3Box.innerHTML = `<p><strong>交叉判定：</strong>MCSI (${mcsi}) 偏弱但零售 (+${retailMom}% / 控制組 +${retailCtrl}%) 維持正成長 → <strong>「實體消費有撐」</strong>；既有部位續抱，${totalMacroScore <= 1 ? '但總經僅 ' + totalMacroScore + ' 分故不追高' : '可依計畫補齊配置'}。</p>`;
-        kpiW3.textContent = `10月零售 +${retailMom}% / 控制組 +${retailCtrl}% → 實體消費有撐`;
+        w3Box.innerHTML = `<p><strong>交叉判定：</strong>MCSI (${mcsi}) 雖仍低檔但控制組零售 (${ctrlSign}${retailCtrl}%) 強勁且整體零售 (${retailSign}${retailMom}%) 為正 → <strong>「實體消費有撐」</strong>；既有核心部位續抱，${totalMacroScore <= 1 ? '但總經僅 ' + totalMacroScore + ' 分故不追高加碼' : '可依計畫補齊配置'}。</p>`;
+        kpiW3.textContent = `10月零售 ${retailSign}${retailMom}% / 控制組 ${ctrlSign}${retailCtrl}% → 實體消費有撐`;
         kpiW3.className = 'text-xs text-emerald-700 font-medium mt-1.5';
       }
 
@@ -913,24 +1113,84 @@
       } else {
         w4Badge.textContent = '核心通膨偏高・防守結算';
         w4Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
-        w4Box.innerHTML = `<p><strong>自動判定：</strong>Core PCE (${w4Cpce}%) / PCE (${w4Hpce}%) 仍高於 3%，月底對帳維持高現金比例，靜待 11/25 最新數據。</p>`;
+        w4Box.innerHTML = `<p><strong>自動判定：</strong>Core PCE (${w4Cpce}%) / PCE (${w4Hpce}%) 仍高於 3.0%，月底對帳維持 30%–40% 高現金比例，靜待 11/25 最新數據開獎。</p>`;
       }
     }
 
+    function renderEtfTables() {
+      const ovBody = document.getElementById('overview-etf-tbody');
+      if (ovBody) {
+        ovBody.innerHTML = ETF_DATA.map(e => `
+          <tr>
+            <td class="py-2.5 pr-4 font-bold text-slate-900 whitespace-nowrap">${e.name}</td>
+            <td class="py-2.5 pr-4 whitespace-nowrap">$${e.close.toFixed(2)} <span class="text-[11px] text-slate-500">(${e.dayChange})</span></td>
+            <td class="py-2.5 pr-4 whitespace-nowrap">$${e.high52w.toFixed(2)}</td>
+            <td class="py-2.5 pr-4 font-bold text-rose-700 whitespace-nowrap">${e.pullbackPct.toFixed(2)}%</td>
+            <td class="py-2.5 pr-4 text-slate-600 text-xs">${e.sma20Note}</td>
+            <td class="py-2.5 whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${e.tierBadgeClass}">${e.tierStatus}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      const tierBody = document.getElementById('etf-tier-tbody');
+      if (tierBody) {
+        tierBody.innerHTML = ETF_DATA.map(e => `
+          <tr>
+            <td class="py-2.5 pr-3 font-bold text-slate-900 whitespace-nowrap">${e.name}</td>
+            <td class="py-2.5 pr-3 whitespace-nowrap">$${e.close.toFixed(2)} / <span class="text-slate-500">$${e.high52w.toFixed(2)}</span></td>
+            <td class="py-2.5 pr-3 font-bold text-rose-700 whitespace-nowrap">${e.pullbackPct.toFixed(2)}%</td>
+            <td class="py-2.5 pr-3 whitespace-nowrap ${e.close <= e.tier5 ? 'font-bold text-emerald-700' : 'text-slate-600'}">$${e.tier5.toFixed(2)} ${e.close <= e.tier5 ? '✅' : ''}</td>
+            <td class="py-2.5 pr-3 whitespace-nowrap ${e.close <= e.tier10 ? 'font-bold text-emerald-700' : 'text-slate-600'}">$${e.tier10.toFixed(2)} ${e.close <= e.tier10 ? '✅' : ''}</td>
+            <td class="py-2.5 pr-3 whitespace-nowrap ${e.close <= e.tier15 ? 'font-bold text-emerald-700' : 'text-slate-600'}">$${e.tier15.toFixed(2)} ${e.close <= e.tier15 ? '✅' : ''}</td>
+            <td class="py-2.5 pr-3 text-slate-600 text-xs">${e.sma20Note}</td>
+            <td class="py-2.5 whitespace-nowrap"><a href="${e.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline text-xs">報價</a></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function applySelectedStockDefaults() {
+      const sym = document.getElementById('sop-stock-select').value;
+      const stock = MAG7_DATA[sym];
+      if (!stock) return;
+      document.getElementById('sop-pullback-input').value = stock.pullback.toFixed(1);
+      document.getElementById('sop-right-select').value = stock.rightSignal ? 'yes' : 'no';
+    }
+
     function updateMag7AndSop(macroItems) {
-      // Render Mag 7 Table
       const tbody = document.getElementById('mag7-tbody');
       tbody.innerHTML = Object.entries(MAG7_DATA).map(([sym, d]) => `
         <tr>
           <td class="py-2.5 pr-3 font-bold text-slate-900 whitespace-nowrap">${d.name}</td>
-          <td class="py-2.5 pr-3 text-slate-700">${d.report}</td>
-          <td class="py-2.5 pr-3 text-slate-600">${d.note}</td>
+          <td class="py-2.5 pr-3 whitespace-nowrap">
+            <div class="font-bold text-slate-900">$${d.price.toFixed(2)} <span class="text-rose-700">(-${d.pullback.toFixed(1)}%)</span></div>
+            <div class="text-[11px] text-slate-500">52W 高 $${d.high52w.toFixed(2)}</div>
+          </td>
+          <td class="py-2.5 pr-3 text-xs">
+            <div class="font-semibold ${d.rightSignal ? 'text-emerald-700' : 'text-slate-700'}">20MA ${d.sma20} ${d.rightSignal ? '✅站上' : '⏳未站回'}</div>
+            <div class="text-[11px] text-slate-500">${d.rsiNote}</div>
+          </td>
+          <td class="py-2.5 pr-3 text-xs space-y-0.5">
+            <div class="text-slate-800 font-medium">${d.report}</div>
+            <div class="text-slate-500">${d.note}</div>
+          </td>
           <td class="py-2.5 pr-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${d.badgeClass}">${d.verdict}</span></td>
-          <td class="py-2.5 whitespace-nowrap"><a href="${d.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline text-xs">財報來源</a></td>
+          <td class="py-2.5 whitespace-nowrap space-x-2">
+            <button type="button" data-pick-stock="${sym}" class="pick-stock-btn px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold text-xs transition">帶入判定</button>
+            <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline text-xs">財報</a>
+          </td>
         </tr>
       `).join('');
 
-      // Evaluate 3 Gates
+      tbody.querySelectorAll('.pick-stock-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('sop-stock-select').value = btn.dataset.pickStock;
+          applySelectedStockDefaults();
+          updateMag7AndSop(autoJudgeMacro());
+          showToast(`已帶入 ${btn.dataset.pickStock} 最新 11/18 收盤與均線實況`);
+        });
+      });
+
       const sym = document.getElementById('sop-stock-select').value;
       const pullback = parseFloat(document.getElementById('sop-pullback-input').value) || 0;
       const rightSignal = document.getElementById('sop-right-select').value === 'yes';
@@ -956,7 +1216,7 @@
       document.getElementById('auto-sop-gates').innerHTML = `
         <div class="p-3.5 rounded-xl border ${gate1Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}">
           <div class="font-bold text-slate-900 mb-1">關卡一：好公司被錯殺 ${gate1Pass ? '✅ 通過' : '❌ 未達標'}</div>
-          <p class="text-slate-700">${stock.verdict}；目前輸入回檔 ${pullback}%（門檻需 ≥ 15% 且財報基本面未降階）。</p>
+          <p class="text-slate-700">${stock.verdict}；目前輸入回檔 ${pullback.toFixed(1)}%（門檻需 ≥ 15% 且財報基本面未降階；11/18 實際收 $${stock.price.toFixed(2)}，較 52W 高 $${stock.high52w.toFixed(2)} 回檔 ${stock.pullback.toFixed(1)}%）。</p>
         </div>
         <div class="p-3.5 rounded-xl border ${gate2Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}">
           <div class="font-bold text-slate-900 mb-1">關卡二：總經見頂 ${gate2Pass ? '✅ 通過' : '❌ 未達標'}</div>
@@ -964,8 +1224,12 @@
         </div>
         <div class="p-3.5 rounded-xl border ${gate3Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}">
           <div class="font-bold text-slate-900 mb-1">關卡三：右側訊號 ${gate3Pass ? '✅ 通過' : '⏳ 等待中'}</div>
-          <p class="text-slate-700">${gate3Pass ? '已站回 20 日均線/放量轉強，可分 2–3 批進場並設停損。' : '尚未站回月線，不於下跌途中單次摸底。'}</p>
+          <p class="text-slate-700">${gate3Pass ? '已站回 20 日均線/放量轉強（20MA ' + stock.sma20 + '），具右側支撐條件。' : '尚未站回 20 日均線（20MA ' + stock.sma20 + '；' + stock.rsiNote + '），不於下跌途中左側接刀。'}</p>
         </div>
+      `;
+
+      document.getElementById('sop-action-summary').innerHTML = `
+        <strong>📌 ${stock.name} 實戰判斷：</strong>${stock.actionNote}
       `;
     }
 
@@ -982,6 +1246,12 @@
       document.getElementById('tier-1').textContent = Math.round(cashAmt * 0.30).toLocaleString();
       document.getElementById('tier-2').textContent = Math.round(cashAmt * 0.40).toLocaleString();
       document.getElementById('tier-3').textContent = Math.round(cashAmt * 0.30).toLocaleString();
+
+      const warnEl = document.getElementById('tier-macro-warning');
+      if (warnEl) {
+        warnEl.textContent = gear.tierWarning;
+        warnEl.className = `p-2.5 rounded-xl text-[11px] leading-relaxed ${gear.tierWarningClass}`;
+      }
     }
 
     function updateCharts(gear, items) {
@@ -997,7 +1267,7 @@
         allocationChart = new Chart(allocCtx, {
           type: 'doughnut',
           data: {
-            labels: ['A 桶：核心指數 (VOO/QQQ)', 'B 桶：七巨人衛星持股', 'B 桶：戰術現金 / 短債'],
+            labels: ['A 桶：核心指數 (VOO/SPY)', 'B 桶：七巨人衛星持股', 'B 桶：戰術現金 / 短債 (SGOV/BIL)'],
             datasets: [{
               data: [corePct, satPct, cashPct],
               backgroundColor: ['#0f172a', '#4f46e5', '#f59e0b'],
@@ -1046,7 +1316,7 @@
       }
     }
 
-    function syncAllViews(shouldRerenderMacro = false) {
+    function syncAllViews() {
       const items = autoJudgeMacro();
       const totalScore = items.reduce((acc, m) => acc + m.score, 0);
       const gear = getGearInfo(totalScore);
@@ -1054,6 +1324,12 @@
       const hBadge = document.getElementById('header-gear-badge');
       hBadge.textContent = gear.badge;
       hBadge.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${gear.badgeClass}`;
+
+      const execPill = document.getElementById('exec-gear-pill');
+      if (execPill) {
+        execPill.textContent = gear.execPill;
+        execPill.className = `px-3 py-1 rounded-full text-xs font-bold border shrink-0 ${gear.execPillClass}`;
+      }
 
       document.getElementById('kpi-score').textContent = String(totalScore);
       document.getElementById('kpi-gear-text').textContent = gear.title;
@@ -1083,6 +1359,7 @@
       simExp.className = `text-sm font-semibold ${gear.textClass}`;
       document.getElementById('sim-action-desc').textContent = gear.advice;
 
+      renderEtfTables();
       updateWeeklyJudgments(totalScore);
       updateMag7AndSop(items);
       updateCapitalCalculator(gear);
@@ -1151,7 +1428,12 @@
         });
       });
 
-      ['sop-stock-select', 'sop-pullback-input', 'sop-right-select'].forEach(id => {
+      document.getElementById('sop-stock-select').addEventListener('change', () => {
+        applySelectedStockDefaults();
+        updateMag7AndSop(autoJudgeMacro());
+      });
+
+      ['sop-pullback-input', 'sop-right-select'].forEach(id => {
         document.getElementById(id).addEventListener('input', () => updateMag7AndSop(autoJudgeMacro()));
         document.getElementById(id).addEventListener('change', () => updateMag7AndSop(autoJudgeMacro()));
       });
@@ -1172,11 +1454,14 @@
         document.getElementById('in-retail-ctrl').value = LIVE_DEFAULTS.retailCtrl;
         document.getElementById('in-w4-cpce').value = LIVE_DEFAULTS.w4Cpce;
         document.getElementById('in-w4-hpce').value = LIVE_DEFAULTS.w4Hpce;
+        document.getElementById('sop-stock-select').value = 'NVDA';
+        applySelectedStockDefaults();
         renderMacroControls();
         syncAllViews();
         showToast('已重置為 2026-11-19 最新實況與自動判定結果');
       });
 
+      applySelectedStockDefaults();
       renderMacroControls();
       initChecklists();
       syncAllViews();
