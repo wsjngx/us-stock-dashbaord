@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>美股航海王：與神同行 × 關鍵趨勢表 實戰儀表板</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; }
+    .tab-btn.active { background-color: #0f172a; color: #ffffff; }
+    .card-shadow { box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen antialiased">
+  <!-- Header -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold text-lg shrink-0">
+          ⚓
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold tracking-tight">美股航海王：與神同行 × 關鍵趨勢表</h1>
+          <p class="text-xs text-slate-400">五層實戰決策儀表板（含自動判分引擎） · 基準日：2026-11-19</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <span id="header-gear-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-200 border border-rose-400/30">
+          目前檔位：逆風防守檔 (1/4 分)
+        </span>
+        <button id="btn-reset-live" type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          重置為 11/19 實況
+        </button>
+      </div>
+    </div>
+    <!-- Navigation Tabs -->
+    <nav class="bg-white text-slate-700 border-b border-slate-200 overflow-x-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-1.5 py-2 whitespace-nowrap">
+        <button type="button" data-tab="overview" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition">1. 總覽與評分判斷</button>
+        <button type="button" data-tab="weekly" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">2. 每週 5 分鐘指標</button>
+        <button type="button" data-tab="macro" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">3. 總經風向計分卡</button>
+        <button type="button" data-tab="seasonal" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">4. 四季與資金試算</button>
+        <button type="button" data-tab="bottom" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-100 transition">5. 七巨人抄底 SOP</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg border border-slate-700"></div>
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="tab-overview" class="tab-panel space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 card-shadow">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span>總經風向得分 (0–4 分)</span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">自動判分</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-score" class="text-3xl font-extrabold text-rose-600">1</span>
+            <span class="text-sm text-slate-500">/ 4 分</span>
+          </div>
+          <p id="kpi-gear-text" class="text-xs font-semibold text-rose-700 mt-1">逆風防守檔（踩剎車 0.6x）</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 card-shadow">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span>建議總股票曝險</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium">核心 + 衛星</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-exposure" class="text-3xl font-extrabold text-slate-900">60%–70%</span>
+          </div>
+          <p id="kpi-cash-text" class="text-xs text-slate-600 mt-1">保留 30%–40% 美元現金 / 短債 (SGOV/BIL)</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 card-shadow">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span>本週數據月曆 (11/16–11/20)</span>
+            <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium">第 3 週</span>
+          </div>
+          <div class="text-xl font-bold text-slate-900 mt-0.5">消費週（Retail Sales）</div>
+          <p id="kpi-weekly-summary" class="text-xs text-emerald-700 font-medium mt-1.5">10月零售 +0.2% / 控制組 +0.6% → 實體消費有撐</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 card-shadow">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span>年度季節效應</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-medium">11–12 月</span>
+          </div>
+          <div class="text-xl font-bold text-slate-900 mt-0.5">冬才收穫期</div>
+          <p class="text-xs text-slate-600 mt-1.5">歷史勝率最高視窗；抱緊核心、12 月中下旬再平衡</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 card-shadow flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="text-sm font-bold text-slate-900">雙軌資產桶動態配置建議</h2>
+              <p class="text-xs text-slate-500">隨總經分數 (0–4 分) 自動調整核心與現金比例</p>
+            </div>
+          </div>
+          <div class="relative h-64 w-full">
+            <canvas id="allocationChart"></canvas>
+          </div>
+          <div id="allocation-advice" class="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed"></div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 card-shadow">
+          <h2 class="text-sm font-bold text-slate-900 mb-1">策略架構解析：五層可執行系統</h2>
+          <p class="text-xs text-slate-500 mb-4">將《與神同行》選池調速框架與《美股關鍵趨勢表》三層時間尺度整合成單一操作迴圈</p>
+          <div class="space-y-2.5">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold text-indigo-600 uppercase">Step 1 · 基礎配置層</span>
+                <p class="text-sm font-semibold text-slate-900">核心指數 (70–80%) ＋ 七巨人衛星與現金 (20–30%)</p>
+              </div>
+              <span class="text-xs text-slate-600 shrink-0">避開單一題材股 / 代工宿命</span>
+            </div>
+            <div class="p-3 rounded-xl bg-rose-50/70 border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold text-rose-600 uppercase">Step 2 · 戰略調速層（每季 / FOMC）</span>
+                <p class="text-sm font-semibold text-slate-900">總經四指標自動計分 (0–4 分) → 決定 0.6x 剎車 / 1.8x 油門</p>
+              </div>
+              <span id="arch-step2-badge" class="text-xs font-semibold text-rose-700 shrink-0">目前：1/4 分（防守檔）</span>
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold text-emerald-700 uppercase">Step 3 · 年度節奏層（四季循環）</span>
+                <p class="text-sm font-semibold text-slate-900">春曉佈局 → 夏耕存彈藥 → 秋寒三階梯 → 冬才收穫</p>
+              </div>
+              <span class="text-xs font-semibold text-emerald-700 shrink-0">目前：11 月冬才收穫</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold text-amber-700 uppercase">Step 4 · 個股抄底層（三關卡 SOP）</span>
+                <p class="text-sm font-semibold text-slate-900">財報基本面 × 總經壓抑見頂 × 右側站回月線訊號</p>
+              </div>
+              <span class="text-xs text-slate-600 shrink-0">含七巨頭最新財報評級</span>
+            </div>
+            <div class="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold text-indigo-700 uppercase">Step 5 · 每週執行層（5 分鐘巡檢）</span>
+                <p class="text-sm font-semibold text-slate-900">就業週 → 通膨週 → 消費週 → 核心週（輸入數據自動判定）</p>
+              </div>
+              <span class="text-xs font-semibold text-indigo-700 shrink-0">本週：第 3 週消費週</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Table -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div>
+            <h2 class="text-sm font-bold text-slate-900">2026-11-19 指標分數總判斷表</h2>
+            <p class="text-xs text-slate-500">結合《攻略》評分準則與截至 2026-11-19 的最新美國官方與市場數據（同步即時模擬結果）</p>
+          </div>
+          <button type="button" data-jump="macro" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 text-left">前往互動調整分數 →</button>
+        </div>
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500">
+              <th class="py-2.5 pr-4 font-semibold">指標構面</th>
+              <th class="py-2.5 pr-4 font-semibold">最新數值 / 實況</th>
+              <th class="py-2.5 pr-4 font-semibold">攻略判斷基準</th>
+              <th class="py-2.5 pr-4 font-semibold">判定分數</th>
+              <th class="py-2.5 font-semibold">資料來源</th>
+            </tr>
+          </thead>
+          <tbody id="overview-macro-tbody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: WEEKLY 5-MIN CHECKLIST WITH AUTO-JUDGMENT -->
+    <section id="tab-weekly" class="tab-panel hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">美股數據月曆：每週 5 分鐘關鍵指標（自動判定）</h2>
+            <p class="text-xs text-slate-500">預載 2026 年 11 月已公布實況；修改任一欄位的公布數值後，系統會依攻略規則即時重新判定執行動作</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-800 font-semibold">當前週次：第 3 週（消費週）</span>
+            <span id="weekly-progress-badge" class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 font-medium">已完成 0 / 4 項</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="weekly-cards-container">
+          <!-- Week 1 -->
+          <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 1 週 · 就業週</span>
+              <span id="w1-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">無衰退徵兆・維持定期定額</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">大非農 (NFP) ＋ 失業率（11/06 已公布）</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <label class="block">
+                <span class="text-slate-600 font-medium">NFP 新增就業 (千人)</span>
+                <input id="in-nfp" type="number" step="5" value="165" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+              <label class="block">
+                <span class="text-slate-600 font-medium">失業率 (%)</span>
+                <input id="in-unemp" type="number" step="0.1" value="4.1" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+            </div>
+            <div id="w1-judge-box" class="p-2.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 space-y-1"></div>
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 text-xs font-medium text-slate-800 cursor-pointer">
+                <input type="checkbox" class="weekly-check w-4 h-4 rounded text-indigo-600" data-week="w1" />
+                <span>已檢視就業週數據</span>
+              </label>
+              <a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" rel="noopener noreferrer" class="text-[11px] text-indigo-600 underline">BLS 來源</a>
+            </div>
+          </div>
+
+          <!-- Week 2 -->
+          <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 2 週 · 通膨週</span>
+              <span id="w2-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800">通膨偏熱・禁追高</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">CPI 月增率 ＋ 密西根信心 MCSI（11/06–10 已公布）</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <label class="block">
+                <span class="text-slate-600 font-medium">CPI 月增率 (% MoM)</span>
+                <input id="in-cpi-mom" type="number" step="0.1" value="0.4" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+              <label class="block">
+                <span class="text-slate-600 font-medium">密西根信心 MCSI</span>
+                <input id="in-mcsi" type="number" step="0.5" value="51.0" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+            </div>
+            <div id="w2-judge-box" class="p-2.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 space-y-1"></div>
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 text-xs font-medium text-slate-800 cursor-pointer">
+                <input type="checkbox" class="weekly-check w-4 h-4 rounded text-indigo-600" data-week="w2" />
+                <span>已避開 CPI 前 24h 追高</span>
+              </label>
+              <div class="flex gap-2 text-[11px]">
+                <a href="https://www.bls.gov/news.release/cpi.nr0.htm" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">BLS</a>
+                <a href="https://www.sca.isr.umich.edu/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">UMich</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Week 3 -->
+          <div class="rounded-2xl border-2 border-indigo-500 p-4 bg-indigo-50/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-600 text-white">第 3 週 · 消費週（本週）</span>
+              <span id="w3-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">實體消費有撐</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">零售銷售 (Retail Sales) × MCSI 交叉比對（11/17 已公布）</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <label class="block">
+                <span class="text-slate-600 font-medium">整體零售月增 (% MoM)</span>
+                <input id="in-retail-mom" type="number" step="0.1" value="0.2" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+              <label class="block">
+                <span class="text-slate-600 font-medium">控制組零售 (% MoM)</span>
+                <input id="in-retail-ctrl" type="number" step="0.1" value="0.6" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+            </div>
+            <div id="w3-judge-box" class="p-2.5 rounded-xl bg-white border border-indigo-200 text-xs text-slate-700 space-y-1"></div>
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 text-xs font-medium text-indigo-950 cursor-pointer">
+                <input type="checkbox" class="weekly-check w-4 h-4 rounded text-indigo-600" data-week="w3" />
+                <span>已完成本週交叉比對</span>
+              </label>
+              <a href="https://www.census.gov/retail/sales.html" target="_blank" rel="noopener noreferrer" class="text-[11px] text-indigo-600 underline">Census Bureau</a>
+            </div>
+          </div>
+
+          <!-- Week 4 -->
+          <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 text-slate-700">第 4 週 · 核心週（11/25）</span>
+              <span id="w4-judge-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">核心通膨偏高・防守結算</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">PCE / Core PCE 個人消費支出物價（前值 9 月 / 11/25 更新）</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <label class="block">
+                <span class="text-slate-600 font-medium">Core PCE 年增 (% YoY)</span>
+                <input id="in-w4-cpce" type="number" step="0.1" value="3.1" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+              <label class="block">
+                <span class="text-slate-600 font-medium">Headline PCE 年增 (% YoY)</span>
+                <input id="in-w4-hpce" type="number" step="0.1" value="3.6" class="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              </label>
+            </div>
+            <div id="w4-judge-box" class="p-2.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 space-y-1"></div>
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 text-xs font-medium text-slate-800 cursor-pointer">
+                <input type="checkbox" class="weekly-check w-4 h-4 rounded text-indigo-600" data-week="w4" />
+                <span>已執行月底結算對帳</span>
+              </label>
+              <a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank" rel="noopener noreferrer" class="text-[11px] text-indigo-600 underline">BEA 來源</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MACRO SCORECARD AUTO-JUDGER -->
+    <section id="tab-macro" class="tab-panel hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">總經風向計分卡（輸入數值自動判定）</h2>
+              <p class="text-xs text-slate-500">修改任一已公布數值或政策狀態，系統立即依攻略門檻自動判分（+1 順風 / 0 逆風）並連動檔位與抄底關卡二</p>
+            </div>
+          </div>
+          <div id="macro-controls" class="space-y-3"></div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 card-shadow flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 mb-2">即時檔位試算結果</h3>
+            <div id="sim-result-box" class="p-4 rounded-2xl border bg-rose-50 border-rose-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase text-rose-700">目前模擬檔位</span>
+                <span id="sim-score-pill" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-600 text-white">1 / 4 分</span>
+              </div>
+              <div id="sim-gear-title" class="text-xl font-extrabold text-slate-900">逆風防守檔（踩剎車 0.6x）</div>
+              <p id="sim-exposure-line" class="text-sm font-semibold text-rose-800">建議總股票曝險：60%–70% ｜ 現金/短債：30%–40%</p>
+              <p id="sim-action-desc" class="text-xs text-slate-700 leading-relaxed"></p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold text-slate-600 uppercase mb-2">四維度風向圖</h4>
+            <div class="relative h-56 w-full">
+              <canvas id="macroRadarChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: SEASONAL & CAPITAL CALCULATOR -->
+    <section id="tab-seasonal" class="tab-panel hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">年度四季作戰節奏 × 財報季循環</h2>
+            <p class="text-xs text-slate-500">依《美股關鍵趨勢表》季節勝率與 1 / 4 / 7 / 10 月財報季推進全年配置</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+              <div class="text-xs font-bold text-slate-500">1–3 月 · 春曉佈局</div>
+              <div class="text-sm font-bold text-slate-900 mt-0.5">1 月財報季全年指引</div>
+              <p class="text-xs text-slate-600 mt-1">篩選上調全年營收/EPS 指引的七巨人，趁 2–3 月震盪完成上半年核心與領頭股建倉。</p>
+            </div>
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+              <div class="text-xs font-bold text-slate-500">4–7 月 · 夏耕轉向</div>
+              <div class="text-sm font-bold text-slate-900 mt-0.5">4/7 月財報汰弱留強</div>
+              <p class="text-xs text-slate-600 mt-1">若成長降階或下修指引則減碼轉回 VOO；7 月底前逢高停利衛星部位，補回 20% 戰術現金。</p>
+            </div>
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+              <div class="text-xs font-bold text-amber-700">8–10 月 · 秋寒加碼</div>
+              <div class="text-sm font-bold text-slate-900 mt-0.5">低勝率月三階梯買點</div>
+              <p class="text-xs text-slate-600 mt-1">大盤自前高回檔 -5% / -10% / -15% 時，分 30% / 40% / 30% 投入戰術現金池（需無系統性衰退）。</p>
+            </div>
+            <div class="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/50">
+              <div class="text-xs font-bold text-emerald-700">11–12 月 · 冬才收穫（當前）</div>
+              <div class="text-sm font-bold text-slate-900 mt-0.5">感恩節作帳 ＋ 年底再平衡</div>
+              <p class="text-xs text-slate-700 mt-1">抱住核心部位不猜頂；12 月中下旬盤點帳戶，將超標股票獲利了結轉回現金/短債。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">雙軌資產桶 & 三階梯加碼金額試算</h2>
+            <p class="text-xs text-slate-500">輸入總投資資金，依目前總經檔位與 Step 1 規則自動切分資金</p>
+          </div>
+          <div>
+            <label for="capital-input" class="block text-xs font-semibold text-slate-700 mb-1">美股總投資本金（美元 USD 或台幣，自訂單位）</label>
+            <input id="capital-input" type="number" min="0" step="1000" value="100000" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-slate-600">目標股票總部位 (<span id="calc-eq-pct">65%</span>)</span>
+              <span id="calc-eq-amt" class="font-bold text-slate-900">65,000</span>
+            </div>
+            <div class="flex justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200">
+              <span class="text-amber-900">目標戰術現金 / 短債 (<span id="calc-cash-pct">35%</span>)</span>
+              <span id="calc-cash-amt" class="font-bold text-amber-900">35,000</span>
+            </div>
+          </div>
+          <div class="border-t border-slate-200 pt-3">
+            <p class="text-xs font-bold text-slate-700 mb-2">若遇回檔啟動三階梯加碼（依戰術現金池分配）：</p>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-slate-500">回檔 -5% (30%)</div>
+                <div id="tier-1" class="font-bold text-slate-900 mt-0.5">10,500</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-slate-500">回檔 -10% (40%)</div>
+                <div id="tier-2" class="font-bold text-slate-900 mt-0.5">14,000</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-slate-500">回檔 -15% (30%)</div>
+                <div id="tier-3" class="font-bold text-slate-900 mt-0.5">10,500</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: 7 GIANTS BOTTOM-FISHING SOP + EARNINGS AUTO-JUDGE -->
+    <section id="tab-bottom" class="tab-panel hidden space-y-6">
+      <!-- Auto 3-Gate Evaluator -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">七巨人抄底 SOP 自動判定器（連動財報 × 總經 × 右側訊號）</h2>
+            <p class="text-xs text-slate-500">選擇個股並填入回檔幅度與均線狀態，系統自動依最新財報與總經計分卡判定是否可進場</p>
+          </div>
+          <span id="auto-sop-verdict" class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">僅通過 1 / 3 關卡：續等或觀望</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
+          <label class="block">
+            <span class="font-semibold text-slate-700">選擇七巨人標的</span>
+            <select id="sop-stock-select" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+              <option value="NVDA">NVIDIA (NVDA) — 核心極強</option>
+              <option value="MSFT">Microsoft (MSFT) — 核心極強</option>
+              <option value="AAPL">Apple (AAPL) — 穩健過關</option>
+              <option value="GOOGL">Alphabet (GOOGL) — 本業強勁</option>
+              <option value="META">Meta (META) — 廣告強・資本支出高</option>
+              <option value="AMZN">Amazon (AMZN) — 觀察警戒</option>
+              <option value="TSLA">Tesla (TSLA) — 獲利降階</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="font-semibold text-slate-700">自前波高點回檔幅度 (%)</span>
+            <input id="sop-pullback-input" type="number" min="0" max="90" step="1" value="18" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold" />
+          </label>
+          <label class="block">
+            <span class="font-semibold text-slate-700">是否出現右側訊號（站回 20 日均線/放量）</span>
+            <select id="sop-right-select" class="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+              <option value="no">否（仍在下跌或築底）</option>
+              <option value="yes">是（已止跌站回月線）</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="auto-sop-gates" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs"></div>
+      </div>
+
+      <!-- Mag 7 Latest Earnings Table -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow overflow-x-auto space-y-3">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">美股七巨人最新一季財報判定表（2026 年 10–11 月公布）</h3>
+          <p class="text-xs text-slate-500">依 Step 3「財報汰弱留強」與 Step 4「好公司基本面檢核」自動標註各標的定位</p>
+        </div>
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500">
+              <th class="py-2 pr-3 font-semibold">標的</th>
+              <th class="py-2 pr-3 font-semibold">最新季度營收 / 獲利實況</th>
+              <th class="py-2 pr-3 font-semibold">關鍵隱憂 / 指引</th>
+              <th class="py-2 pr-3 font-semibold">攻略判定</th>
+              <th class="py-2 font-semibold">來源</th>
+            </tr>
+          </thead>
+          <tbody id="mag7-tbody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+
+      <!-- Manual SOP Checklist preserved -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">手動實戰執行確認清單</h2>
+            <p class="text-xs text-slate-500">下單前最終人工確認（勾選紀錄自動保存）</p>
+          </div>
+          <span id="sop-status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">尚未通過全部關卡 (0/3)</span>
+        </div>
+
+        <div class="space-y-2.5">
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 cursor-pointer hover:bg-slate-100/70 transition">
+            <input type="checkbox" class="sop-check mt-0.5 w-4 h-4 rounded text-indigo-600" data-sop="1" />
+            <div class="text-xs sm:text-sm">
+              <div class="font-bold text-slate-900">關卡一：確認「好公司被錯殺」（簡報指標一）</div>
+              <p class="text-slate-600 mt-0.5">股價隨大盤回檔 15%–30% 以上，且最近一季財報營收、毛利率與核心需求未結構性惡化。</p>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 cursor-pointer hover:bg-slate-100/70 transition">
+            <input type="checkbox" class="sop-check mt-0.5 w-4 h-4 rounded text-indigo-600" data-sop="2" />
+            <div class="text-xs sm:text-sm">
+              <div class="font-bold text-slate-900">關卡二：確認「總經殺盤動能見頂」（關鍵趨勢表補齊）</div>
+              <p class="text-slate-600 mt-0.5">US10Y 殖利率不再創高、CPI/PCE 維持回落軌道。</p>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 cursor-pointer hover:bg-slate-100/70 transition">
+            <input type="checkbox" class="sop-check mt-0.5 w-4 h-4 rounded text-indigo-600" data-sop="3" />
+            <div class="text-xs sm:text-sm">
+              <div class="font-bold text-slate-900">關卡三：確認「右側上漲訊號」（對應 MSFT 260 進場案例）</div>
+              <p class="text-slate-600 mt-0.5">等止跌回穩、站回月線（20 日均線）或財報後放量突破整理區間時，分 2–3 批進場並設停損。</p>
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const LIVE_DEFAULTS = {
+      fedPolicy: 'hike_or_hawkish', // hike_or_hawkish | pause_near_cut | cutting
+      us10y: 5.10,
+      dxyVal: 103.70,
+      dxyTrend: 'weak_or_range', // weak_or_range | breakout_surge
+      corePce: 3.1,
+      nfp: 165,
+      unemp: 4.1,
+      cpiMom: 0.4,
+      mcsi: 51.0,
+      retailMom: 0.2,
+      retailCtrl: 0.6,
+      w4Cpce: 3.1,
+      w4Hpce: 3.6
+    };
+
+    const MAG7_DATA = {
+      NVDA: {
+        name: 'NVIDIA (NVDA)',
+        report: 'Q3 FY27 營收 $115.8B (+103% YoY)、Non-GAAP EPS $2.68、毛利率 74.9%',
+        note: 'Q4 指引 $130.0B 優於預期；留意 CEO 交接過渡與 Q4 毛利率略降至 71%–72%',
+        verdict: '核心極強（保留）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        url: 'https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/'
+      },
+      MSFT: {
+        name: 'Microsoft (MSFT)',
+        report: 'Q1 FY27 營收 $92.28B (+19% YoY)、調整後 EPS $4.89、Azure 成長 +48%',
+        note: '雲端與 AI 變現動能紮實，資本支出高檔但商業 RPO 大增 73%',
+        verdict: '核心極強（保留）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        url: 'https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast'
+      },
+      AAPL: {
+        name: 'Apple (AAPL)',
+        report: 'Q4 FY26 營收 $114.48B (+11.7% YoY)、EPS $2.10 (+13.5% YoY)',
+        note: '12 月季營收指引 +7%～+10%，但記憶體與 AI 成本使毛利率指引降至 45%–46%',
+        verdict: '穩健過關（保留）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        url: 'https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/'
+      },
+      GOOGL: {
+        name: 'Alphabet (GOOGL)',
+        report: 'Q3 營收 $127.58B (+25% YoY)、營業利益 +30%、Cloud $30.7B (+103%)',
+        note: 'EPS 年減係受 SpaceX 未實現損失 $8.2B 拖累；單季 CapEx $51.4B 使 FCF 轉負',
+        verdict: '本業強勁（保留）',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        fundamentalPass: true,
+        url: 'https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf'
+      },
+      META: {
+        name: 'Meta (META)',
+        report: 'Q3 營收 $64.60B (+26% YoY)、Q4 指引 $73B–$76B 強勁',
+        note: '認列 $9.89B 法律和解金；單季 CapEx $34.91B 使自由現金流降至 -$2.12B',
+        verdict: '廣告強（續抱觀察）',
+        badgeClass: 'bg-amber-100 text-amber-800',
+        fundamentalPass: true,
+        url: 'https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx'
+      },
+      AMZN: {
+        name: 'Amazon (AMZN)',
+        report: 'Q3 營收 $201.94B (+12.1%)、EPS $1.89 雙雙略低於預期；AWS +39%',
+        note: 'Q4 營收指引偏保守，且單季 CapEx $77.26B 使自由現金流降至 -$34.84B',
+        verdict: '觀察／減碼警戒',
+        badgeClass: 'bg-amber-100 text-amber-800',
+        fundamentalPass: false,
+        url: 'https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/'
+      },
+      TSLA: {
+        name: 'Tesla (TSLA)',
+        report: 'Q3 營收 $28.05B (-0.2% YoY 持平)、毛利率 19.6%、Non-GAAP EPS $0.48',
+        note: 'AI 與 Optimus 費用大增 39%，致營業利益年減 56%、GAAP EPS 年減 44% 至 $0.22',
+        verdict: '獲利降階（優先汰弱）',
+        badgeClass: 'bg-rose-100 text-rose-800',
+        fundamentalPass: false,
+        url: 'https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/'
+      }
+    };
+
+    let macroInputs = { ...LIVE_DEFAULTS };
+    let manualOverrides = { rate_dir: null, yield_10y: null, dxy: null, inflation: null };
+    let allocationChart = null;
+    let radarChart = null;
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.add('hidden'), 2400);
+    }
+
+    function autoJudgeMacro() {
+      const autoRate = (macroInputs.fedPolicy === 'cutting' || macroInputs.fedPolicy === 'pause_near_cut') ? 1 : 0;
+      const autoYield = macroInputs.us10y < 4.3 ? 1 : 0;
+      const autoDxy = macroInputs.dxyTrend === 'weak_or_range' ? 1 : 0;
+      const autoInf = (macroInputs.corePce >= 1.5 && macroInputs.corePce <= 3.0) ? 1 : 0;
+
+      return [
+        {
+          id: 'rate_dir',
+          name: '1. 利息升降 (Fed 政策)',
+          autoScore: autoRate,
+          score: manualOverrides.rate_dir !== null ? manualOverrides.rate_dir : autoRate,
+          liveDisplay: macroInputs.fedPolicy === 'hike_or_hawkish'
+            ? '升息循環 / 轉鷹（3.75%–4.00%，12月升息機率92%）'
+            : (macroInputs.fedPolicy === 'pause_near_cut' ? '停止升息且半年內預期降息' : 'Fed 處於降息循環'),
+          ruleText: '降息或半年內轉鴿 → +1 ｜ 升息或轉鷹 → 0',
+          sourceHtml: '<a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Fed</a> · <a href="https://kalshi.com/markets/kxfeddecision/fed-meeting/kxfeddecision-26dec" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Kalshi</a>'
+        },
+        {
+          id: 'yield_10y',
+          name: '2. 利率高低 (US10Y)',
+          autoScore: autoYield,
+          score: manualOverrides.yield_10y !== null ? manualOverrides.yield_10y : autoYield,
+          liveDisplay: `US10Y = ${macroInputs.us10y.toFixed(2)}%`,
+          ruleText: '< 4.30% 平穩下行 → +1 ｜ ≥ 4.30% / 飆破 4.5% → 0',
+          sourceHtml: '<a href="https://tradingeconomics.com/united-states/government-bond-yield" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Trading Economics</a>'
+        },
+        {
+          id: 'dxy',
+          name: '3. 美元強弱 (DXY)',
+          autoScore: autoDxy,
+          score: manualOverrides.dxy !== null ? manualOverrides.dxy : autoDxy,
+          liveDisplay: `DXY = ${macroInputs.dxyVal.toFixed(2)} (${macroInputs.dxyTrend === 'weak_or_range' ? '區間整理/走弱' : '單邊急升突破'})`,
+          ruleText: '走弱或區間整理 → +1 ｜ 單邊急升破前高 → 0',
+          sourceHtml: '<a href="https://tradingeconomics.com/united-states/currency" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">Trading Economics</a>'
+        },
+        {
+          id: 'inflation',
+          name: '4. 通膨高低 (Core PCE)',
+          autoScore: autoInf,
+          score: manualOverrides.inflation !== null ? manualOverrides.inflation : autoInf,
+          liveDisplay: `Core PCE = ${macroInputs.corePce.toFixed(1)}% YoY`,
+          ruleText: '1.5%–3.0% 溫和區間 → +1 ｜ > 3.0% 黏著反彈或通縮 → 0',
+          sourceHtml: '<a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index-excluding-food-and-energy" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">BEA</a> · <a href="https://www.bls.gov/news.release/cpi.nr0.htm" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">BLS</a>'
+        }
+      ];
+    }
+
+    function getGearInfo(totalScore) {
+      if (totalScore >= 3) {
+        return {
+          title: '順風加速檔（加油門概念）',
+          badge: `目前檔位：順風加速檔 (${totalScore}/4 分)`,
+          shortBadge: `目前：${totalScore}/4 分（加速檔）`,
+          exposureText: '85%–95%',
+          cashText: '僅留 5%–15% 備用現金',
+          eqMid: 90,
+          cashMid: 10,
+          advice: '可執行 VOO → QQQ 互換法提高科技成長權重，並於回檔時積極投入七巨人衛星部位。',
+          boxClass: 'bg-emerald-50 border-emerald-200',
+          pillClass: 'bg-emerald-600 text-white',
+          badgeClass: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30',
+          textClass: 'text-emerald-800'
+        };
+      }
+      if (totalScore === 2) {
+        return {
+          title: '常規巡航檔（1.0x 基準）',
+          badge: '目前檔位：常規巡航檔 (2/4 分)',
+          shortBadge: '目前：2/4 分（巡航檔）',
+          exposureText: '75%–80%',
+          cashText: '保留 20%–25% 美元現金 / 短債',
+          eqMid: 78,
+          cashMid: 22,
+          advice: 'A 桶維持 VOO 為主軸不動；B 桶保留約 20–25% 現金，僅於數據錯殺或季節修正時分批承接。',
+          boxClass: 'bg-amber-50 border-amber-200',
+          pillClass: 'bg-amber-600 text-white',
+          badgeClass: 'bg-amber-500/20 text-amber-200 border-amber-400/30',
+          textClass: 'text-amber-800'
+        };
+      }
+      return {
+        title: '逆風防守檔（踩剎車 0.6x）',
+        badge: `目前檔位：逆風防守檔 (${totalScore}/4 分)`,
+        shortBadge: `目前：${totalScore}/4 分（防守檔）`,
+        exposureText: '60%–70%',
+        cashText: '保留 30%–40% 美元現金 / 短債 (SGOV/BIL)',
+        eqMid: 65,
+        cashMid: 35,
+        advice: '啟動 0.6x 踩剎車思維：將衛星部位逢高獲利了結或把 QQQ 換回 VOO，整體曝險降至 60%–70%，留足現金等深跌。',
+        boxClass: 'bg-rose-50 border-rose-200',
+        pillClass: 'bg-rose-600 text-white',
+        badgeClass: 'bg-rose-500/20 text-rose-200 border-rose-400/30',
+        textClass: 'text-rose-800'
+      };
+    }
+
+    function renderMacroControls() {
+      const items = autoJudgeMacro();
+      const container = document.getElementById('macro-controls');
+      container.innerHTML = `
+        <!-- 1. Fed -->
+        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-sm font-bold text-slate-900">${items[0].name}</span>
+              <p class="text-[11px] text-slate-500">${items[0].ruleText}</p>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[0].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[0].score === 1 ? '+1 順風' : '0 逆風'}</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center justify-between">
+            <select id="macro-in-fed" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-xs font-semibold flex-1">
+              <option value="hike_or_hawkish" ${macroInputs.fedPolicy === 'hike_or_hawkish' ? 'selected' : ''}>升息循環 / 轉鷹（3.75%–4.00%，12月升息機率92%）</option>
+              <option value="pause_near_cut" ${macroInputs.fedPolicy === 'pause_near_cut' ? 'selected' : ''}>停止升息且預期半年內降息</option>
+              <option value="cutting" ${macroInputs.fedPolicy === 'cutting' ? 'selected' : ''}>Fed 處於降息循環</option>
+            </select>
+            <div class="flex gap-1 shrink-0">
+              <button type="button" data-ov="rate_dir" data-val="1" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[0].score === 1 ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-300'}">+1</button>
+              <button type="button" data-ov="rate_dir" data-val="0" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[0].score === 0 ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-600 border-slate-300'}">0</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. US10Y -->
+        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-sm font-bold text-slate-900">${items[1].name}</span>
+              <p class="text-[11px] text-slate-500">${items[1].ruleText}</p>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[1].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[1].score === 1 ? '+1 順風' : '0 逆風'}</span>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <label class="flex items-center gap-2 text-xs">
+              <span class="text-slate-600">殖利率 (%):</span>
+              <input id="macro-in-us10y" type="number" step="0.05" value="${macroInputs.us10y}" class="w-24 px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+            </label>
+            <div class="flex gap-1 shrink-0">
+              <button type="button" data-ov="yield_10y" data-val="1" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[1].score === 1 ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-300'}">+1</button>
+              <button type="button" data-ov="yield_10y" data-val="0" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[1].score === 0 ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-600 border-slate-300'}">0</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DXY -->
+        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-sm font-bold text-slate-900">${items[2].name}</span>
+              <p class="text-[11px] text-slate-500">${items[2].ruleText}</p>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[2].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[2].score === 1 ? '+1 順風' : '0 逆風'}</span>
+          </div>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-xs flex-1">
+              <input id="macro-in-dxy" type="number" step="0.1" value="${macroInputs.dxyVal}" class="w-24 px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+              <select id="macro-in-dxytrend" class="px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold flex-1">
+                <option value="weak_or_range" ${macroInputs.dxyTrend === 'weak_or_range' ? 'selected' : ''}>區間整理或走弱</option>
+                <option value="breakout_surge" ${macroInputs.dxyTrend === 'breakout_surge' ? 'selected' : ''}>單邊急升突破前高</option>
+              </select>
+            </div>
+            <div class="flex gap-1 shrink-0">
+              <button type="button" data-ov="dxy" data-val="1" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[2].score === 1 ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-300'}">+1</button>
+              <button type="button" data-ov="dxy" data-val="0" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[2].score === 0 ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-600 border-slate-300'}">0</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Inflation -->
+        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-sm font-bold text-slate-900">${items[3].name}</span>
+              <p class="text-[11px] text-slate-500">${items[3].ruleText}</p>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${items[3].score === 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">自動判定：${items[3].score === 1 ? '+1 順風' : '0 逆風'}</span>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <label class="flex items-center gap-2 text-xs">
+              <span class="text-slate-600">Core PCE 年增 (%):</span>
+              <input id="macro-in-cpce" type="number" step="0.1" value="${macroInputs.corePce}" class="w-24 px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white font-semibold" />
+            </label>
+            <div class="flex gap-1 shrink-0">
+              <button type="button" data-ov="inflation" data-val="1" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[3].score === 1 ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-300'}">+1</button>
+              <button type="button" data-ov="inflation" data-val="0" class="ov-btn px-2.5 py-1 rounded-lg text-[11px] font-bold border ${items[3].score === 0 ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-600 border-slate-300'}">0</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('macro-in-fed').addEventListener('change', e => {
+        macroInputs.fedPolicy = e.target.value;
+        manualOverrides.rate_dir = null;
+        renderMacroControls();
+        syncAllViews();
+      });
+      document.getElementById('macro-in-us10y').addEventListener('input', e => {
+        const v = parseFloat(e.target.value);
+        if (Number.isFinite(v)) {
+          macroInputs.us10y = v;
+          manualOverrides.yield_10y = null;
+          syncAllViews(false);
+        }
+      });
+      document.getElementById('macro-in-us10y').addEventListener('change', () => renderMacroControls());
+      document.getElementById('macro-in-dxy').addEventListener('input', e => {
+        const v = parseFloat(e.target.value);
+        if (Number.isFinite(v)) {
+          macroInputs.dxyVal = v;
+          syncAllViews(false);
+        }
+      });
+      document.getElementById('macro-in-dxytrend').addEventListener('change', e => {
+        macroInputs.dxyTrend = e.target.value;
+        manualOverrides.dxy = null;
+        renderMacroControls();
+        syncAllViews();
+      });
+      document.getElementById('macro-in-cpce').addEventListener('input', e => {
+        const v = parseFloat(e.target.value);
+        if (Number.isFinite(v)) {
+          macroInputs.corePce = v;
+          manualOverrides.inflation = null;
+          syncAllViews(false);
+        }
+      });
+      document.getElementById('macro-in-cpce').addEventListener('change', () => renderMacroControls());
+
+      container.querySelectorAll('.ov-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          manualOverrides[btn.dataset.ov] = Number(btn.dataset.val);
+          renderMacroControls();
+          syncAllViews();
+        });
+      });
+    }
+
+    function updateWeeklyJudgments(totalMacroScore) {
+      const nfp = parseFloat(document.getElementById('in-nfp').value) || 0;
+      const unemp = parseFloat(document.getElementById('in-unemp').value) || 0;
+      const cpiMom = parseFloat(document.getElementById('in-cpi-mom').value) || 0;
+      const mcsi = parseFloat(document.getElementById('in-mcsi').value) || 0;
+      const retailMom = parseFloat(document.getElementById('in-retail-mom').value) || 0;
+      const retailCtrl = parseFloat(document.getElementById('in-retail-ctrl').value) || 0;
+      const w4Cpce = parseFloat(document.getElementById('in-w4-cpce').value) || 0;
+      const w4Hpce = parseFloat(document.getElementById('in-w4-hpce').value) || 0;
+
+      // Week 1
+      const w1Badge = document.getElementById('w1-judge-badge');
+      const w1Box = document.getElementById('w1-judge-box');
+      if (nfp < 50 || unemp >= 4.5) {
+        w1Badge.textContent = '就業轉冷・週五不接刀';
+        w1Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (${nfp}K) 偏弱或失業率 (${unemp}%) 升溫，若引發急殺<strong>當週五先不接刀</strong>，靜待第 2 週通膨確認政策空間。</p>`;
+      } else {
+        w1Badge.textContent = '無衰退徵兆・維持定期定額';
+        w1Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+        w1Box.innerHTML = `<p><strong>自動判定：</strong>NFP (${nfp}K)、失業率 (${unemp}%) 顯示勞動市場穩健無衰退，維持核心定期定額；小非農只看風向不動作。</p>`;
+      }
+
+      // Week 2
+      const w2Badge = document.getElementById('w2-judge-badge');
+      const w2Box = document.getElementById('w2-judge-box');
+      if (cpiMom >= 0.3) {
+        w2Badge.textContent = '通膨偏熱・禁追高';
+        w2Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 ${cpiMom.toFixed(1)}% 偏熱。遵守「公布前 24h 禁買高」；${totalMacroScore >= 2 ? '總經 ≥ 2 分，若開盤錯殺 -1.5%~-2% 可接 50% 額度' : '因目前總經僅 ' + totalMacroScore + ' 分（防守檔），不建議主動接刀'}。</p>`;
+      } else {
+        w2Badge.textContent = '通膨降溫・留意錯殺買點';
+        w2Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+        w2Box.innerHTML = `<p><strong>自動判定：</strong>CPI 月增 ${cpiMom.toFixed(1)}% 溫和，有利降息預期；若短線波動錯殺可依總經檔位評估承接。</p>`;
+      }
+
+      // Week 3
+      const w3Badge = document.getElementById('w3-judge-badge');
+      const w3Box = document.getElementById('w3-judge-box');
+      const kpiW3 = document.getElementById('kpi-weekly-summary');
+      if (retailMom < 0 && retailCtrl < 0 && mcsi < 60) {
+        w3Badge.textContent = '雙雙轉弱・暫停個股加碼';
+        w3Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+        w3Box.innerHTML = `<p><strong>交叉判定：</strong>MCSI (${mcsi}) 與零售 (${retailMom}%) 同步轉負 → <strong>暫停個股加碼</strong>，資金留存短債池。</p>`;
+        kpiW3.textContent = `零售 ${retailMom}% 與信心同步轉弱 → 暫停加碼`;
+        kpiW3.className = 'text-xs text-rose-700 font-medium mt-1.5';
+      } else {
+        w3Badge.textContent = '實體消費有撐・續抱不追高';
+        w3Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+        w3Box.innerHTML = `<p><strong>交叉判定：</strong>MCSI (${mcsi}) 偏弱但零售 (+${retailMom}% / 控制組 +${retailCtrl}%) 維持正成長 → <strong>「實體消費有撐」</strong>；既有部位續抱，${totalMacroScore <= 1 ? '但總經僅 ' + totalMacroScore + ' 分故不追高' : '可依計畫補齊配置'}。</p>`;
+        kpiW3.textContent = `10月零售 +${retailMom}% / 控制組 +${retailCtrl}% → 實體消費有撐`;
+        kpiW3.className = 'text-xs text-emerald-700 font-medium mt-1.5';
+      }
+
+      // Week 4
+      const w4Badge = document.getElementById('w4-judge-badge');
+      const w4Box = document.getElementById('w4-judge-box');
+      if (w4Cpce <= 3.0) {
+        w4Badge.textContent = '通膨溫和・完成月度對帳';
+        w4Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+        w4Box.innerHTML = `<p><strong>自動判定：</strong>Core PCE (${w4Cpce}%) 回落至 3% 以內、無失錨風險，於月底週五完成核心指數定期定額與對帳。</p>`;
+      } else {
+        w4Badge.textContent = '核心通膨偏高・防守結算';
+        w4Badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
+        w4Box.innerHTML = `<p><strong>自動判定：</strong>Core PCE (${w4Cpce}%) / PCE (${w4Hpce}%) 仍高於 3%，月底對帳維持高現金比例，靜待 11/25 最新數據。</p>`;
+      }
+    }
+
+    function updateMag7AndSop(macroItems) {
+      // Render Mag 7 Table
+      const tbody = document.getElementById('mag7-tbody');
+      tbody.innerHTML = Object.entries(MAG7_DATA).map(([sym, d]) => `
+        <tr>
+          <td class="py-2.5 pr-3 font-bold text-slate-900 whitespace-nowrap">${d.name}</td>
+          <td class="py-2.5 pr-3 text-slate-700">${d.report}</td>
+          <td class="py-2.5 pr-3 text-slate-600">${d.note}</td>
+          <td class="py-2.5 pr-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${d.badgeClass}">${d.verdict}</span></td>
+          <td class="py-2.5 whitespace-nowrap"><a href="${d.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline text-xs">財報來源</a></td>
+        </tr>
+      `).join('');
+
+      // Evaluate 3 Gates
+      const sym = document.getElementById('sop-stock-select').value;
+      const pullback = parseFloat(document.getElementById('sop-pullback-input').value) || 0;
+      const rightSignal = document.getElementById('sop-right-select').value === 'yes';
+      const stock = MAG7_DATA[sym];
+
+      const gate1Pass = stock.fundamentalPass && pullback >= 15;
+      const us10yScore = macroItems.find(m => m.id === 'yield_10y').score;
+      const rateScore = macroItems.find(m => m.id === 'rate_dir').score;
+      const infScore = macroItems.find(m => m.id === 'inflation').score;
+      const gate2Pass = us10yScore === 1 && infScore === 1 && rateScore === 1;
+      const gate3Pass = rightSignal;
+
+      const passCount = [gate1Pass, gate2Pass, gate3Pass].filter(Boolean).length;
+      const verdictEl = document.getElementById('auto-sop-verdict');
+      if (passCount === 3) {
+        verdictEl.textContent = `通過 3 / 3 關卡：${sym} 符合抄底條件，可分批進場`;
+        verdictEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+      } else {
+        verdictEl.textContent = `僅通過 ${passCount} / 3 關卡：暫不抄底，續等或維持核心`;
+        verdictEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+      }
+
+      document.getElementById('auto-sop-gates').innerHTML = `
+        <div class="p-3.5 rounded-xl border ${gate1Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}">
+          <div class="font-bold text-slate-900 mb-1">關卡一：好公司被錯殺 ${gate1Pass ? '✅ 通過' : '❌ 未達標'}</div>
+          <p class="text-slate-700">${stock.verdict}；目前輸入回檔 ${pullback}%（門檻需 ≥ 15% 且財報基本面未降階）。</p>
+        </div>
+        <div class="p-3.5 rounded-xl border ${gate2Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}">
+          <div class="font-bold text-slate-900 mb-1">關卡二：總經見頂 ${gate2Pass ? '✅ 通過' : '❌ 未達標'}</div>
+          <p class="text-slate-700">自動連動計分卡：US10Y (${macroInputs.us10y.toFixed(2)}%)、Core PCE (${macroInputs.corePce.toFixed(1)}%) 與 Fed 政策需同步轉順風。</p>
+        </div>
+        <div class="p-3.5 rounded-xl border ${gate3Pass ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}">
+          <div class="font-bold text-slate-900 mb-1">關卡三：右側訊號 ${gate3Pass ? '✅ 通過' : '⏳ 等待中'}</div>
+          <p class="text-slate-700">${gate3Pass ? '已站回 20 日均線/放量轉強，可分 2–3 批進場並設停損。' : '尚未站回月線，不於下跌途中單次摸底。'}</p>
+        </div>
+      `;
+    }
+
+    function updateCapitalCalculator(gear) {
+      const input = document.getElementById('capital-input');
+      const raw = Number(input.value);
+      const capital = Number.isFinite(raw) && raw > 0 ? raw : 0;
+      const eqAmt = Math.round(capital * (gear.eqMid / 100));
+      const cashAmt = Math.max(0, capital - eqAmt);
+      document.getElementById('calc-eq-pct').textContent = `${gear.eqMid}%`;
+      document.getElementById('calc-cash-pct').textContent = `${gear.cashMid}%`;
+      document.getElementById('calc-eq-amt').textContent = eqAmt.toLocaleString();
+      document.getElementById('calc-cash-amt').textContent = cashAmt.toLocaleString();
+      document.getElementById('tier-1').textContent = Math.round(cashAmt * 0.30).toLocaleString();
+      document.getElementById('tier-2').textContent = Math.round(cashAmt * 0.40).toLocaleString();
+      document.getElementById('tier-3').textContent = Math.round(cashAmt * 0.30).toLocaleString();
+    }
+
+    function updateCharts(gear, items) {
+      const corePct = Math.round(gear.eqMid * 0.8);
+      const satPct = gear.eqMid - corePct;
+      const cashPct = gear.cashMid;
+
+      const allocCtx = document.getElementById('allocationChart').getContext('2d');
+      if (allocationChart) {
+        allocationChart.data.datasets[0].data = [corePct, satPct, cashPct];
+        allocationChart.update();
+      } else {
+        allocationChart = new Chart(allocCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['A 桶：核心指數 (VOO/QQQ)', 'B 桶：七巨人衛星持股', 'B 桶：戰術現金 / 短債'],
+            datasets: [{
+              data: [corePct, satPct, cashPct],
+              backgroundColor: ['#0f172a', '#4f46e5', '#f59e0b'],
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+            }
+          }
+        });
+      }
+
+      const radarCtx = document.getElementById('macroRadarChart').getContext('2d');
+      const radarData = items.map(m => m.score);
+      if (radarChart) {
+        radarChart.data.datasets[0].data = radarData;
+        radarChart.update();
+      } else {
+        radarChart = new Chart(radarCtx, {
+          type: 'radar',
+          data: {
+            labels: ['利息升降', '利率高低', '美元強弱', '通膨高低'],
+            datasets: [{
+              label: '指標得分 (0=逆風, 1=順風)',
+              data: radarData,
+              backgroundColor: 'rgba(79, 70, 229, 0.18)',
+              borderColor: '#4f46e5',
+              pointBackgroundColor: '#4f46e5',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: { min: 0, max: 1, ticks: { stepSize: 1, display: false } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+    }
+
+    function syncAllViews(shouldRerenderMacro = false) {
+      const items = autoJudgeMacro();
+      const totalScore = items.reduce((acc, m) => acc + m.score, 0);
+      const gear = getGearInfo(totalScore);
+
+      const hBadge = document.getElementById('header-gear-badge');
+      hBadge.textContent = gear.badge;
+      hBadge.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${gear.badgeClass}`;
+
+      document.getElementById('kpi-score').textContent = String(totalScore);
+      document.getElementById('kpi-gear-text').textContent = gear.title;
+      document.getElementById('kpi-exposure').textContent = gear.exposureText;
+      document.getElementById('kpi-cash-text').textContent = gear.cashText;
+      document.getElementById('arch-step2-badge').textContent = gear.shortBadge;
+      document.getElementById('allocation-advice').innerHTML = `<strong>操作指令：</strong>${gear.advice}`;
+
+      document.getElementById('overview-macro-tbody').innerHTML = items.map(it => `
+        <tr>
+          <td class="py-3 pr-4 font-semibold text-slate-900">${it.name}</td>
+          <td class="py-3 pr-4">${it.liveDisplay}</td>
+          <td class="py-3 pr-4 text-slate-600">${it.ruleText}</td>
+          <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-full font-bold ${it.score === 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">${it.score === 1 ? '+1 分（順風）' : '0 分（逆風）'}</span></td>
+          <td class="py-3">${it.sourceHtml}</td>
+        </tr>
+      `).join('');
+
+      const simBox = document.getElementById('sim-result-box');
+      simBox.className = `p-4 rounded-2xl border space-y-2 ${gear.boxClass}`;
+      const simPill = document.getElementById('sim-score-pill');
+      simPill.textContent = `${totalScore} / 4 分`;
+      simPill.className = `px-2.5 py-0.5 rounded-full text-xs font-bold ${gear.pillClass}`;
+      document.getElementById('sim-gear-title').textContent = gear.title;
+      const simExp = document.getElementById('sim-exposure-line');
+      simExp.textContent = `建議總股票曝險：${gear.exposureText} ｜ ${gear.cashText}`;
+      simExp.className = `text-sm font-semibold ${gear.textClass}`;
+      document.getElementById('sim-action-desc').textContent = gear.advice;
+
+      updateWeeklyJudgments(totalScore);
+      updateMag7AndSop(items);
+      updateCapitalCalculator(gear);
+      updateCharts(gear, items);
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('hidden', p.id !== `tab-${tabName}`));
+    }
+
+    function initChecklists() {
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem('us_stock_checks_v1') || '{}'); } catch (e) { saved = {}; }
+
+      const updateWeeklyBadge = () => {
+        const all = document.querySelectorAll('.weekly-check');
+        const checked = Array.from(all).filter(c => c.checked).length;
+        document.getElementById('weekly-progress-badge').textContent = `已完成 ${checked} / ${all.length} 項`;
+      };
+      const updateSopBadge = () => {
+        const all = document.querySelectorAll('.sop-check');
+        const checked = Array.from(all).filter(c => c.checked).length;
+        const badge = document.getElementById('sop-status-badge');
+        if (checked === 3) {
+          badge.textContent = '已通過全部三關卡 (3/3) · 可分批進場';
+          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+        } else {
+          badge.textContent = `尚未通過全部關卡 (${checked}/3)`;
+          badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700';
+        }
+      };
+
+      document.querySelectorAll('.weekly-check').forEach(cb => {
+        const key = 'wk_' + cb.dataset.week;
+        if (saved[key]) cb.checked = true;
+        cb.addEventListener('change', () => {
+          saved[key] = cb.checked;
+          try { localStorage.setItem('us_stock_checks_v1', JSON.stringify(saved)); } catch (e) {}
+          updateWeeklyBadge();
+        });
+      });
+
+      document.querySelectorAll('.sop-check').forEach(cb => {
+        const key = 'sop_' + cb.dataset.sop;
+        if (saved[key]) cb.checked = true;
+        cb.addEventListener('change', () => {
+          saved[key] = cb.checked;
+          try { localStorage.setItem('us_stock_checks_v1', JSON.stringify(saved)); } catch (e) {}
+          updateSopBadge();
+        });
+      });
+
+      updateWeeklyBadge();
+      updateSopBadge();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+      document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.jump)));
+
+      ['in-nfp', 'in-unemp', 'in-cpi-mom', 'in-mcsi', 'in-retail-mom', 'in-retail-ctrl', 'in-w4-cpce', 'in-w4-hpce'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+          const totalScore = autoJudgeMacro().reduce((acc, m) => acc + m.score, 0);
+          updateWeeklyJudgments(totalScore);
+        });
+      });
+
+      ['sop-stock-select', 'sop-pullback-input', 'sop-right-select'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => updateMag7AndSop(autoJudgeMacro()));
+        document.getElementById(id).addEventListener('change', () => updateMag7AndSop(autoJudgeMacro()));
+      });
+
+      document.getElementById('capital-input').addEventListener('input', () => {
+        const totalScore = autoJudgeMacro().reduce((acc, m) => acc + m.score, 0);
+        updateCapitalCalculator(getGearInfo(totalScore));
+      });
+
+      document.getElementById('btn-reset-live').addEventListener('click', () => {
+        macroInputs = { ...LIVE_DEFAULTS };
+        manualOverrides = { rate_dir: null, yield_10y: null, dxy: null, inflation: null };
+        document.getElementById('in-nfp').value = LIVE_DEFAULTS.nfp;
+        document.getElementById('in-unemp').value = LIVE_DEFAULTS.unemp;
+        document.getElementById('in-cpi-mom').value = LIVE_DEFAULTS.cpiMom;
+        document.getElementById('in-mcsi').value = LIVE_DEFAULTS.mcsi;
+        document.getElementById('in-retail-mom').value = LIVE_DEFAULTS.retailMom;
+        document.getElementById('in-retail-ctrl').value = LIVE_DEFAULTS.retailCtrl;
+        document.getElementById('in-w4-cpce').value = LIVE_DEFAULTS.w4Cpce;
+        document.getElementById('in-w4-hpce').value = LIVE_DEFAULTS.w4Hpce;
+        renderMacroControls();
+        syncAllViews();
+        showToast('已重置為 2026-11-19 最新實況與自動判定結果');
+      });
+
+      renderMacroControls();
+      initChecklists();
+      syncAllViews();
+    });
+  </script>
+</body>
+</html>
